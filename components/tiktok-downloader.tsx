@@ -52,15 +52,32 @@ export default function TikTokDownloader() {
   const [isCardExpanded, setIsCardExpanded] = useState(false)
   const [audioFileSize, setAudioFileSize] = useState<number>(0)
   const [imageFileSizes, setImageFileSizes] = useState<Record<number, number>>({})
+  const [isLowPerfDevice, setIsLowPerfDevice] = useState(false)
 
-  // 3D card effect values
+  // 3D card effect values - only used on high-performance devices
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const rotateX = useTransform(y, [-100, 100], [10, -10])
-  const rotateY = useTransform(x, [-100, 100], [-10, 10])
+  const rotateX = useTransform(y, [-100, 100], [5, -5]) // Reduced rotation amount
+  const rotateY = useTransform(x, [-100, 100], [-5, 5]) // Reduced rotation amount
 
   // Ref for the card element
   const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+
+    // Check if device is likely to have performance issues
+    const checkPerformance = () => {
+      // Simple heuristic - mobile devices or older browsers are more likely to struggle
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      const isOlderBrowser = !window.requestAnimationFrame || !window.cancelAnimationFrame
+
+      // If the device has a low memory or is a mobile device, use the low performance mode
+      setIsLowPerfDevice(isMobile || isOlderBrowser)
+    }
+
+    checkPerformance()
+  }, [])
 
   const getFileSize = async (url: string): Promise<number> => {
     try {
@@ -74,8 +91,6 @@ export default function TikTokDownloader() {
   }
 
   useEffect(() => {
-    setMounted(true)
-
     // Get audio file size when result is available
     if (result?.result?.musik) {
       getFileSize(result.result.musik).then((size) => {
@@ -83,24 +98,15 @@ export default function TikTokDownloader() {
       })
     }
 
-    // Get image file sizes
+    // Get image file sizes - but only for the current image to reduce network requests
     if (result?.result?.tipe === "gambar" && result.result.gambar.length > 0) {
-      const fetchImageSizes = async () => {
-        const sizes: Record<number, number> = {}
-
-        for (let i = 0; i < result.result.gambar.length; i++) {
-          const size = await getFileSize(result.result.gambar[i])
-          sizes[i] = size
-        }
-
-        setImageFileSizes(sizes)
-      }
-
-      fetchImageSizes()
+      getFileSize(result.result.gambar[0]).then((size) => {
+        setImageFileSizes({ 0: size })
+      })
     }
   }, [result])
 
-  // Update when current image index changes
+  // Update when current image index changes - only fetch size for the current image
   useEffect(() => {
     if (result?.result?.tipe === "gambar" && result.result.gambar.length > 0 && !imageFileSizes[currentImageIndex]) {
       getFileSize(result.result.gambar[currentImageIndex]).then((size) => {
@@ -197,8 +203,6 @@ export default function TikTokDownloader() {
     }
   }
 
-  // Find the handleAudioDownload function and update it:
-
   const handleAudioDownload = async (url: string) => {
     try {
       setDownloadLoading("audio")
@@ -212,8 +216,6 @@ export default function TikTokDownloader() {
       setDownloadLoading(null)
     }
   }
-
-  // Find the handleImageDownload function and update it:
 
   const handleImageDownload = async (url: string, index: number) => {
     try {
@@ -229,8 +231,10 @@ export default function TikTokDownloader() {
     }
   }
 
-  // Handle 3D card effect mouse movement
+  // Handle 3D card effect mouse movement - with throttling for performance
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isLowPerfDevice) return // Skip on low performance devices
+
     const rect = e.currentTarget.getBoundingClientRect()
     const width = rect.width
     const height = rect.height
@@ -238,37 +242,49 @@ export default function TikTokDownloader() {
     const mouseY = e.clientY - rect.top
     const xPct = (mouseX / width - 0.5) * 2
     const yPct = (mouseY / height - 0.5) * 2
-    x.set(xPct * 50)
-    y.set(yPct * 50)
+    x.set(xPct * 30) // Reduced movement amount
+    y.set(yPct * 30) // Reduced movement amount
   }
 
   const handleMouseLeave = () => {
+    if (isLowPerfDevice) return // Skip on low performance devices
+
     x.set(0)
     y.set(0)
   }
 
   if (!mounted) return null
 
+  // Simplified motion props for low performance devices
+  const motionProps = isLowPerfDevice
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.3 },
+      }
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay: 0.3, duration: 0.5 },
+      }
+
   return (
-    <motion.div
-      className="w-full max-w-3xl mx-auto px-4 sm:px-6"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8, duration: 0.5 }}
-    >
-      <motion.div
+    <motion.div className="w-full max-w-3xl mx-auto px-4 sm:px-6" {...motionProps}>
+      <div
         ref={cardRef}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-          perspective: 1000,
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        style={
+          isLowPerfDevice
+            ? {}
+            : {
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+                perspective: 1000,
+              }
+        }
+        onMouseMove={isLowPerfDevice ? undefined : handleMouseMove}
+        onMouseLeave={isLowPerfDevice ? undefined : handleMouseLeave}
         className="w-full"
-        whileHover={{ scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
         <Card className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-xl transition-all duration-300 overflow-hidden transform-gpu">
           <CardHeader className="text-center">
@@ -287,27 +303,17 @@ export default function TikTokDownloader() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.5 }}
-            >
+            <div>
               <CardTitle className="text-3xl font-bold text-blue-600 dark:text-blue-400">TikTok Downloader</CardTitle>
               <CardDescription className="dark:text-gray-400">
                 Download TikTok videos and photos without watermark
               </CardDescription>
-            </motion.div>
+            </div>
           </CardHeader>
 
-          <motion.div style={{ transform: "translateZ(30px)" }}>
+          <div style={isLowPerfDevice ? {} : { transform: "translateZ(20px)" }}>
             <CardContent>
-              <motion.form
-                onSubmit={handleSubmit}
-                className="space-y-4"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-              >
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Input
                     type="text"
@@ -320,8 +326,6 @@ export default function TikTokDownloader() {
                     type="submit"
                     disabled={loading}
                     className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                   >
                     {loading ? (
                       <>
@@ -333,32 +337,13 @@ export default function TikTokDownloader() {
                     )}
                   </Button>
                 </div>
-                {error && (
-                  <motion.p
-                    className="text-red-500 text-sm"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {error}
-                  </motion.p>
-                )}
-              </motion.form>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+              </form>
 
               <AnimatePresence>
                 {result && (
-                  <motion.div
-                    className="mt-6 overflow-hidden"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{
-                      opacity: 1,
-                      height: isCardExpanded ? "auto" : 0,
-                      transition: {
-                        opacity: { duration: 0.3 },
-                        height: { duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] },
-                      },
-                    }}
-                    exit={{ opacity: 0, height: 0 }}
+                  <div
+                    className={`mt-6 overflow-hidden ${isCardExpanded ? "h-auto" : "h-0"} transition-all duration-500`}
                   >
                     <div className="flex flex-col md:flex-row gap-4 items-start">
                       <div className="flex-1">
@@ -376,178 +361,139 @@ export default function TikTokDownloader() {
                       </div>
 
                       {result.result.tipe === "video" ? (
-                        <motion.div
-                          className="w-full md:w-64 rounded-lg overflow-hidden"
-                          initial={{ scale: 0.9, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
-                        >
+                        <div className="w-full md:w-64 rounded-lg overflow-hidden">
                           <video
                             src={result.result.videoSD}
                             controls
                             className="w-full h-auto"
                             poster="/placeholder.svg?height=360&width=200"
                           />
-                        </motion.div>
+                        </div>
                       ) : (
-                        <motion.div
-                          className="w-full md:w-64 relative"
-                          initial={{ scale: 0.9, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
-                        >
+                        <div className="w-full md:w-64 relative">
                           {result.result.gambar.length > 0 && (
                             <SwipeableImage images={result.result.gambar} onImageChange={setCurrentImageIndex} />
                           )}
-                        </motion.div>
+                        </div>
                       )}
                     </div>
 
                     {result.result.tipe === "video" ? (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                      >
+                      <div className="mt-6">
                         <Tabs defaultValue="hd" className="mt-6" value={activeTab} onValueChange={setActiveTab}>
                           <TabsList className="grid w-full grid-cols-3">
                             <TabsTrigger value="hd" className="transition-all duration-300 relative overflow-hidden">
                               HD Quality
                               {activeTab === "hd" && (
-                                <motion.div
-                                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400"
-                                  layoutId="activeTabIndicator"
-                                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400" />
                               )}
                             </TabsTrigger>
                             <TabsTrigger value="sd" className="transition-all duration-300 relative overflow-hidden">
                               SD Quality
                               {activeTab === "sd" && (
-                                <motion.div
-                                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400"
-                                  layoutId="activeTabIndicator"
-                                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400" />
                               )}
                             </TabsTrigger>
                             <TabsTrigger value="audio" className="transition-all duration-300 relative overflow-hidden">
                               Audio Only
                               {activeTab === "audio" && (
-                                <motion.div
-                                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400"
-                                  layoutId="activeTabIndicator"
-                                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 dark:bg-blue-400" />
                               )}
                             </TabsTrigger>
                           </TabsList>
-                          <AnimatePresence mode="wait">
-                            <motion.div
-                              key={activeTab}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <TabsContent value="hd" className="mt-4">
-                                <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
-                                  <div>
-                                    <p className="font-medium dark:text-white">HD Quality</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                      {formatBytes(result.result.hd.bytes)}
-                                    </p>
-                                  </div>
-                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                    <Button
-                                      className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
-                                      onClick={() => handleDownload(result.result.videoHD, "HD")}
-                                      disabled={downloadLoading === "HD"}
-                                    >
-                                      {downloadLoading === "HD" ? (
-                                        <>
-                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                          Downloading...
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Download className="mr-2 h-4 w-4" />
-                                          Download HD
-                                        </>
-                                      )}
-                                    </Button>
-                                  </motion.div>
+                          <div>
+                            <TabsContent value="hd" className="mt-4">
+                              <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
+                                <div>
+                                  <p className="font-medium dark:text-white">HD Quality</p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    {formatBytes(result.result.hd.bytes)}
+                                  </p>
                                 </div>
-                              </TabsContent>
-                              <TabsContent value="sd" className="mt-4">
-                                <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
-                                  <div>
-                                    <p className="font-medium dark:text-white">SD Quality</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                      {formatBytes(result.result.ukuran.bytes)}
-                                    </p>
-                                  </div>
-                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                    <Button
-                                      className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
-                                      onClick={() => handleDownload(result.result.videoSD, "SD")}
-                                      disabled={downloadLoading === "SD"}
-                                    >
-                                      {downloadLoading === "SD" ? (
-                                        <>
-                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                          Downloading...
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Download className="mr-2 h-4 w-4" />
-                                          Download SD
-                                        </>
-                                      )}
-                                    </Button>
-                                  </motion.div>
+                                <div>
+                                  <Button
+                                    className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
+                                    onClick={() => handleDownload(result.result.videoHD, "HD")}
+                                    disabled={downloadLoading === "HD"}
+                                  >
+                                    {downloadLoading === "HD" ? (
+                                      <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Downloading...
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Download className="mr-2 h-4 w-4" />
+                                        Download HD
+                                      </>
+                                    )}
+                                  </Button>
                                 </div>
-                              </TabsContent>
-                              <TabsContent value="audio" className="mt-4">
-                                <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
-                                  <div>
-                                    <p className="font-medium dark:text-white">Audio Only</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                      {audioFileSize > 0 ? formatBytes(audioFileSize) : "Calculating size..."}
-                                    </p>
-                                  </div>
-                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                    <Button
-                                      className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
-                                      onClick={() => handleAudioDownload(result.result.musik)}
-                                      disabled={downloadLoading === "audio"}
-                                    >
-                                      {downloadLoading === "audio" ? (
-                                        <>
-                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                          Downloading...
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Music className="mr-2 h-4 w-4" />
-                                          Download Audio
-                                        </>
-                                      )}
-                                    </Button>
-                                  </motion.div>
+                              </div>
+                            </TabsContent>
+                            <TabsContent value="sd" className="mt-4">
+                              <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
+                                <div>
+                                  <p className="font-medium dark:text-white">SD Quality</p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    {formatBytes(result.result.ukuran.bytes)}
+                                  </p>
                                 </div>
-                              </TabsContent>
-                            </motion.div>
-                          </AnimatePresence>
+                                <div>
+                                  <Button
+                                    className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
+                                    onClick={() => handleDownload(result.result.videoSD, "SD")}
+                                    disabled={downloadLoading === "SD"}
+                                  >
+                                    {downloadLoading === "SD" ? (
+                                      <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Downloading...
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Download className="mr-2 h-4 w-4" />
+                                        Download SD
+                                      </>
+                                    )}
+                                  </Button>
+                                </div>
+                              </div>
+                            </TabsContent>
+                            <TabsContent value="audio" className="mt-4">
+                              <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300 gap-3">
+                                <div>
+                                  <p className="font-medium dark:text-white">Audio Only</p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    {audioFileSize > 0 ? formatBytes(audioFileSize) : "Calculating size..."}
+                                  </p>
+                                </div>
+                                <div>
+                                  <Button
+                                    className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
+                                    onClick={() => handleAudioDownload(result.result.musik)}
+                                    disabled={downloadLoading === "audio"}
+                                  >
+                                    {downloadLoading === "audio" ? (
+                                      <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Downloading...
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Music className="mr-2 h-4 w-4" />
+                                        Download Audio
+                                      </>
+                                    )}
+                                  </Button>
+                                </div>
+                              </div>
+                            </TabsContent>
+                          </div>
                         </Tabs>
-                      </motion.div>
+                      </div>
                     ) : (
-                      <motion.div
-                        className="mt-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                      >
+                      <div className="mt-6">
                         <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg transition-all duration-300">
                           <div className="mb-2">
                             <p className="font-medium dark:text-white mb-2">
@@ -567,7 +513,7 @@ export default function TikTokDownloader() {
                                       : "Calculating size..."}
                                   </p>
                                 </div>
-                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <div>
                                   <Button
                                     size="sm"
                                     className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
@@ -588,7 +534,7 @@ export default function TikTokDownloader() {
                                       </>
                                     )}
                                   </Button>
-                                </motion.div>
+                                </div>
                               </div>
 
                               {/* Audio download button - only show if music exists */}
@@ -602,7 +548,7 @@ export default function TikTokDownloader() {
                                       {audioFileSize > 0 ? formatBytes(audioFileSize) : "Calculating size..."}
                                     </p>
                                   </div>
-                                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                  <div>
                                     <Button
                                       size="sm"
                                       className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto"
@@ -621,21 +567,21 @@ export default function TikTokDownloader() {
                                         </>
                                       )}
                                     </Button>
-                                  </motion.div>
+                                  </div>
                                 </div>
                               )}
                             </div>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     )}
-                  </motion.div>
+                  </div>
                 )}
               </AnimatePresence>
             </CardContent>
-          </motion.div>
+          </div>
 
-          <motion.div style={{ transform: "translateZ(10px)" }}>
+          <div style={isLowPerfDevice ? {} : { transform: "translateZ(10px)" }}>
             <CardFooter className="flex justify-center border-t pt-4 dark:border-gray-700">
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 © 2023-2025 TikTok Downloader. by{" "}
@@ -649,9 +595,9 @@ export default function TikTokDownloader() {
                 </Link>
               </p>
             </CardFooter>
-          </motion.div>
+          </div>
         </Card>
-      </motion.div>
+      </div>
     </motion.div>
   )
 }

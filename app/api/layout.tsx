@@ -16,7 +16,9 @@ export default function ApiLayout({
       <ApiPageTransition />
       <Suspense
         fallback={
-          <div className="min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800"></div>
+          <div className="min-h-screen flex items-center justify-center text-white text-xl">
+            Loading API documentation...
+          </div>
         }
       >
         {children}

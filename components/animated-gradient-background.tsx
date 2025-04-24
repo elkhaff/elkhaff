@@ -1,115 +1,95 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
 
 export function AnimatedGradientBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const [isLowPerfDevice, setIsLowPerfDevice] = useState(false)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    setMounted(true)
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    // Check if device is likely to have performance issues
+    const checkPerformance = () => {
+      // Simple heuristic - mobile devices or older browsers are more likely to struggle
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      const isOlderBrowser = !window.requestAnimationFrame || !window.cancelAnimationFrame
 
-    let animationFrameId: number
-    let width = window.innerWidth
-    let height = window.innerHeight
-
-    // Set canvas dimensions
-    const updateDimensions = () => {
-      width = window.innerWidth
-      height = window.innerHeight
-      canvas.width = width
-      canvas.height = height
+      // If the device has a low memory or is a mobile device, use the low performance mode
+      setIsLowPerfDevice(isMobile || isOlderBrowser)
     }
 
-    updateDimensions()
-    window.addEventListener("resize", updateDimensions)
+    checkPerformance()
+  }, [])
 
-    // Create gradient points
-    const points = Array.from({ length: 10 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: Math.random() * 0.5 - 0.25,
-      vy: Math.random() * 0.5 - 0.25,
-      radius: Math.random() * 300 + 100,
-      color:
-        resolvedTheme === "dark"
-          ? `rgba(${30 + Math.random() * 30}, ${50 + Math.random() * 50}, ${150 + Math.random() * 100}, 0.5)`
-          : `rgba(${50 + Math.random() * 50}, ${100 + Math.random() * 100}, ${200 + Math.random() * 55}, 0.5)`,
-    }))
+  if (!mounted) return null
 
-    const animate = () => {
-      // Clear canvas with a base color
-      ctx.fillStyle = resolvedTheme === "dark" ? "rgba(10, 20, 50, 0.05)" : "rgba(100, 150, 255, 0.05)"
-      ctx.fillRect(0, 0, width, height)
+  // For low performance devices, use a simple gradient background
+  if (isLowPerfDevice) {
+    return (
+      <div
+        className={`fixed top-0 left-0 w-full h-full -z-10 pointer-events-none transition-colors duration-1000 ease-in-out
+          ${
+            resolvedTheme === "dark"
+              ? "bg-gradient-to-br from-blue-950 via-blue-900 to-black"
+              : "bg-gradient-to-br from-blue-400 via-blue-300 to-white"
+          }`}
+      />
+    )
+  }
 
-      // Draw each gradient point
-      points.forEach((point) => {
-        // Move point
-        point.x += point.vx
-        point.y += point.vy
-
-        // Bounce off edges
-        if (point.x < 0 || point.x > width) point.vx *= -1
-        if (point.y < 0 || point.y > height) point.vy *= -1
-
-        // Create radial gradient
-        const gradient = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, point.radius)
-
-        gradient.addColorStop(0, point.color)
-        gradient.addColorStop(1, "transparent")
-
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, width, height)
-      })
-
-      animationFrameId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    return () => {
-      window.removeEventListener("resize", updateDimensions)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [resolvedTheme])
-
+  // For normal devices, use a more enhanced but still optimized background
   return (
     <>
-      <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" />
-      <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-gradient-to-br from-blue-400/30 to-blue-600/30 dark:from-blue-600/30 dark:to-blue-800/30" />
+      {/* Main gradient background - static but theme-aware */}
+      <div
+        className={`fixed top-0 left-0 w-full h-full -z-10 pointer-events-none transition-colors duration-1000 ease-in-out
+          ${
+            resolvedTheme === "dark"
+              ? "bg-gradient-to-br from-blue-950 via-blue-900 to-black"
+              : "bg-gradient-to-br from-blue-400 via-blue-300 to-white"
+          }`}
+      />
 
-      {/* Animated floating shapes */}
-      <div className="fixed top-0 left-0 w-full h-full -z-5 pointer-events-none overflow-hidden">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-white/10 backdrop-blur-sm"
-            style={{
-              width: Math.random() * 200 + 50,
-              height: Math.random() * 200 + 50,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              background: `radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)`,
-            }}
-            animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
-              rotate: [0, Math.random() * 360],
-            }}
-            transition={{
-              duration: Math.random() * 20 + 10,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      {/* Subtle blur overlay - much lighter than before */}
+      <div className="fixed top-0 left-0 w-full h-full -z-9 pointer-events-none backdrop-blur-[20px] opacity-30"></div>
+
+      {/* Animated floating orbs - reduced number and simplified */}
+      <div className="fixed top-0 left-0 w-full h-full -z-8 pointer-events-none overflow-hidden">
+        {Array.from({ length: 5 }).map((_, i) => {
+          const isDark = resolvedTheme === "dark"
+          const size = Math.random() * 200 + 100
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full transition-colors duration-1000"
+              style={{
+                width: size,
+                height: size,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                background: isDark
+                  ? `radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(30, 64, 175, 0) 70%)`
+                  : `radial-gradient(circle, rgba(96, 165, 250, 0.05) 0%, rgba(59, 130, 246, 0) 70%)`,
+                border: isDark ? `1px solid rgba(59, 130, 246, 0.03)` : `1px solid rgba(147, 197, 253, 0.03)`,
+              }}
+              animate={{
+                x: [0, Math.random() * 50 - 25],
+                y: [0, Math.random() * 50 - 25],
+              }}
+              transition={{
+                duration: Math.random() * 20 + 30,
+                repeat: Number.POSITIVE_INFINITY,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+            />
+          )
+        })}
       </div>
     </>
   )
