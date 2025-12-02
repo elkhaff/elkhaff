@@ -17,6 +17,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -29,11 +31,27 @@ jobs:
           WAIFU_DATA=$(curl -s https://api.waifu.pics/sfw/waifu)
           WAIFU_URL=$(echo $WAIFU_DATA | jq -r '.url')
           echo "url=$WAIFU_URL" >> $GITHUB_OUTPUT
+          
+          # Extract ID from URL (e.g., https://i.waifu.pics/9seL-Rc.jpg -> 9seL-Rc)
+          WAIFU_ID=$(echo $WAIFU_URL | grep -oP 'pics/\K[^.]+')
+          echo "id=$WAIFU_ID" >> $GITHUB_OUTPUT
+
+      - name: Download Waifu Image
+        continue-on-error: true
+        run: |
+          WAIFU_URL=${{ steps.waifu.outputs.url }}
+          WAIFU_ID=${{ steps.waifu.outputs.id }}
+          if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
+            mkdir -p dist
+            curl -L -o "dist/${WAIFU_ID}.jpg" "$WAIFU_URL"
+            echo "Downloaded: ${WAIFU_ID}.jpg"
+          fi
 
       - name: Update README
         continue-on-error: true
         run: |
           WAIFU_URL=${{ steps.waifu.outputs.url }}
+          WAIFU_ID=${{ steps.waifu.outputs.id }}
           if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
             COUNTER=$(grep -oP '<!--waifu-\K[0-9]+' README.md | tail -1)
             if [ -z "$COUNTER" ]; then
@@ -42,12 +60,13 @@ jobs:
             NEXT_COUNTER=$((COUNTER + 1))
             TIMESTAMP=$(TZ='Asia/Jakarta' date '+%d-%m-%Y %H:%M:%S')
             sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
-            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"$WAIFU_URL\" width|g" README.md
+            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"https://raw.githubusercontent.com/${{ github.repository }}/waifu/${WAIFU_ID}.jpg\" width|g" README.md
             sed -i "s|last update: .*</span>|last update: $TIMESTAMP</span>|g" README.md
             echo "fetch_count=$NEXT_COUNTER" >> $GITHUB_ENV
+            echo "waifu_id=$WAIFU_ID" >> $GITHUB_ENV
           fi
 
-      - name: Commit Waifu Update
+      - name: Commit Waifu to README
         continue-on-error: true
         run: |
           git config user.email "elkhaff27@gmail.com"
@@ -55,8 +74,17 @@ jobs:
           git pull 
           git add README.md
           if git diff --staged --quiet; then
-            echo "No changes for waifu"
+            echo "No changes for waifu in README"
           else
             git commit -m "update: waifu gwehj ke ${{ env.fetch_count }}"
             git push
           fi
+
+      - name: Push Waifu Image to waifu branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: waifu
+          build_dir: dist
+          keep_history: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
