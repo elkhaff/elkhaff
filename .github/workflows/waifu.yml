@@ -1,0 +1,62 @@
+name: Auto Update Waifu
+
+on:
+  schedule:
+    - cron: "*/2 * * * *" 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-waifu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Fetch Waifu Image
+        id: waifu
+        continue-on-error: true
+        run: |
+          WAIFU_DATA=$(curl -s https://api.waifu.pics/sfw/waifu)
+          WAIFU_URL=$(echo $WAIFU_DATA | jq -r '.url')
+          echo "url=$WAIFU_URL" >> $GITHUB_OUTPUT
+
+      - name: Update README
+        continue-on-error: true
+        run: |
+          WAIFU_URL=${{ steps.waifu.outputs.url }}
+          if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
+            COUNTER=$(grep -oP '<!--waifu-\K[0-9]+' README.md | tail -1)
+            if [ -z "$COUNTER" ]; then
+              COUNTER=0
+            fi
+            NEXT_COUNTER=$((COUNTER + 1))
+            TIMESTAMP=$(TZ='Asia/Jakarta' date '+%d-%m-%Y %H:%M:%S')
+            sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
+            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"$WAIFU_URL\" width|g" README.md
+            sed -i "s|last update: .*</span>|last update: $TIMESTAMP</span>|g" README.md
+            echo "fetch_count=$NEXT_COUNTER" >> $GITHUB_ENV
+          fi
+
+      - name: Commit Waifu Update
+        continue-on-error: true
+        run: |
+          git config user.email "elkaffbot@gmail.com"
+          git config user.name "elkhaff[bot]"
+          git pull
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes for waifu"
+          else
+            git commit -m "update: waifu gwehj ke ${{ env.fetch_count }}"
+            git push
+          fi
