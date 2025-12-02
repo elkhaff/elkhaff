@@ -36,32 +36,43 @@ jobs:
           WAIFU_ID=$(echo $WAIFU_URL | grep -oP 'pics/\K[^.]+')
           echo "id=$WAIFU_ID" >> $GITHUB_OUTPUT
 
-      - name: Download Waifu Image
+      - name: Check and Download Waifu Image
         continue-on-error: true
         run: |
           WAIFU_URL=${{ steps.waifu.outputs.url }}
           WAIFU_ID=${{ steps.waifu.outputs.id }}
           if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
             mkdir -p img/waifu
-            curl -L -o "img/waifu/${WAIFU_ID}.jpg" "$WAIFU_URL"
-            echo "Downloaded: ${WAIFU_ID}.jpg"
+            
+            # Cek apakah file dengan ID ini sudah ada
+            if [ -f "img/waifu/${WAIFU_ID}.jpg" ]; then
+              echo "File ${WAIFU_ID}.jpg sudah ada, skip download"
+              echo "exists=true" >> $GITHUB_ENV
+            else
+              curl -L -o "img/waifu/${WAIFU_ID}.jpg" "$WAIFU_URL"
+              echo "Downloaded: ${WAIFU_ID}.jpg"
+              echo "exists=false" >> $GITHUB_ENV
+            fi
           fi
 
       - name: Update README
         continue-on-error: true
         run: |
-          WAIFU_URL=${{ steps.waifu.outputs.url }}
           WAIFU_ID=${{ steps.waifu.outputs.id }}
-          if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
+          if [ -n "$WAIFU_ID" ] && [ "$WAIFU_ID" != "null" ]; then
             COUNTER=$(grep -oP '<!--waifu-\K[0-9]+' README.md | tail -1)
             if [ -z "$COUNTER" ]; then
               COUNTER=0
             fi
             NEXT_COUNTER=$((COUNTER + 1))
             TIMESTAMP=$(TZ='Asia/Jakarta' date '+%d-%m-%Y %H:%M:%S')
+            
+            # Update semua reference waifu di README
             sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
-            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
+            sed -i "s|<img src=\"[^\"]*waifu/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
+            sed -i "s|<img src=\"https://i.waifu.pics/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
             sed -i "s|last update: .*</span>|last update: $TIMESTAMP</span>|g" README.md
+            
             echo "fetch_count=$NEXT_COUNTER" >> $GITHUB_ENV
             echo "waifu_id=$WAIFU_ID" >> $GITHUB_ENV
           fi
@@ -76,6 +87,10 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes for waifu"
           else
-            git commit -m "update: waifu gwehj ke ${{ env.fetch_count }}"
+            if [ "${{ env.exists }}" = "true" ]; then
+              git commit -m "update: waifu ke ${{ env.fetch_count }} (reuse: ${{ env.waifu_id }})"
+            else
+              git commit -m "update: waifu gwehj ke ${{ env.fetch_count }}"
+            fi
             git push
           fi
