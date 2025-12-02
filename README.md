@@ -1,4 +1,4 @@
-![Header](./img/github-header-banner-1.png)
+![Header](./img/github-header-banner-3.png)
 
 <h1 align="center">Hey I'm elkhaff</h1>
 
@@ -24,9 +24,9 @@
 ---
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/elkhaff/elkhaff/pacman/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/elkhaff/elkhaff/pacman/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/elkhaff/elkhaff/pacman/pacman-contribution-graph.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./img/pacman/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./img/pacman/pacman-contribution-graph.svg">
+  <img alt="pacman contribution graph" src="./img/pacman/pacman-contribution-graph.svg">
 </picture>
 
 ---
@@ -55,15 +55,15 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/elkhaff/elkhaff/snake/snake.svg" alt="Snake animation" />
+<img src="./img/snake/snake.svg" alt="Snake animation" />
 
 ---
 
 ## My Waifu
 
-<!--waifu-13-->
+<!--waifu-8-->
 <div style="position: relative; display: inline-block; width: 100%; text-align: center;">
-<img src="https://raw.githubusercontent.com/elkhaff/elkhaff/waifu/MGCFWn1.jpg" width="300" style="display: inline-block;">
-<div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 02-12-2025 21:56:30</span></div>
+<img src="./img/waifu/9seL-Rc.jpg" width="300" style="display: inline-block;">
+<div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 02-12-2025 19:54:19</span></div>
 </div>
 <!--waifu-->

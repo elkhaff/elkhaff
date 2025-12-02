@@ -32,7 +32,7 @@ jobs:
           WAIFU_URL=$(echo $WAIFU_DATA | jq -r '.url')
           echo "url=$WAIFU_URL" >> $GITHUB_OUTPUT
           
-          # Extract ID from URL (e.g., https://i.waifu.pics/9seL-Rc.jpg -> 9seL-Rc)
+          # Extract ID from URL
           WAIFU_ID=$(echo $WAIFU_URL | grep -oP 'pics/\K[^.]+')
           echo "id=$WAIFU_ID" >> $GITHUB_OUTPUT
 
@@ -42,8 +42,8 @@ jobs:
           WAIFU_URL=${{ steps.waifu.outputs.url }}
           WAIFU_ID=${{ steps.waifu.outputs.id }}
           if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
-            mkdir -p dist
-            curl -L -o "dist/${WAIFU_ID}.jpg" "$WAIFU_URL"
+            mkdir -p img/waifu
+            curl -L -o "img/waifu/${WAIFU_ID}.jpg" "$WAIFU_URL"
             echo "Downloaded: ${WAIFU_ID}.jpg"
           fi
 
@@ -60,31 +60,22 @@ jobs:
             NEXT_COUNTER=$((COUNTER + 1))
             TIMESTAMP=$(TZ='Asia/Jakarta' date '+%d-%m-%Y %H:%M:%S')
             sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
-            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"https://raw.githubusercontent.com/${{ github.repository }}/waifu/${WAIFU_ID}.jpg\" width|g" README.md
+            sed -i "s|<img src=\"https://i.waifu.pics/.*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
             sed -i "s|last update: .*</span>|last update: $TIMESTAMP</span>|g" README.md
             echo "fetch_count=$NEXT_COUNTER" >> $GITHUB_ENV
             echo "waifu_id=$WAIFU_ID" >> $GITHUB_ENV
           fi
 
-      - name: Commit Waifu to README
+      - name: Commit Changes
         continue-on-error: true
         run: |
           git config user.email "elkhaff27@gmail.com"
           git config user.name "elkaff[bot]"
           git pull 
-          git add README.md
+          git add README.md img/waifu/
           if git diff --staged --quiet; then
-            echo "No changes for waifu in README"
+            echo "No changes for waifu"
           else
             git commit -m "update: waifu gwehj ke ${{ env.fetch_count }}"
             git push
           fi
-
-      - name: Push Waifu Image to waifu branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
-        with:
-          target_branch: waifu
-          build_dir: dist
-          keep_history: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
