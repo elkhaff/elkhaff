@@ -66,8 +66,7 @@ jobs:
             fi
             NEXT_COUNTER=$((COUNTER + 1))
             TIMESTAMP=$(TZ='Asia/Jakarta' date '+%d-%m-%Y %H:%M:%S')
-            
-            # Update semua reference waifu di README
+           
             sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
             sed -i "s|<img src=\"[^\"]*waifu/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
             sed -i "s|<img src=\"https://i.waifu.pics/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
