@@ -53,6 +53,12 @@
   <img alt="npm" src="https://skillicons.dev/icons?i=npm" />
 </p>
 
+---
+
+<img src="https://raw.githubusercontent.com/elkhaff/elkhaff/output/snake.svg" alt="Snake animation" />
+
+---
+
 ## My Waifu
 
 <!--waifu-8-->
