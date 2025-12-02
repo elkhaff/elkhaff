@@ -31,7 +31,7 @@ jobs:
       - name: Commit Banner Update
         continue-on-error: true
         run: |
-          git config user.email "elkaffbot@gmail.com"
+          git config user.email "elkhaff27@gmail.com"
           git config user.name "elkhaff[bot]"
           git pull
           git add README.md

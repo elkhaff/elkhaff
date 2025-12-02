@@ -50,9 +50,9 @@ jobs:
       - name: Commit Waifu Update
         continue-on-error: true
         run: |
-          git config user.email "elkaffbot@gmail.com"
-          git config user.name "elkhaff[bot]"
-          git pull
+          git config user.email "elkhaff27@gmail.com"
+          git config user.name "elkaff[bot]"
+          git pull 
           git add README.md
           if git diff --staged --quiet; then
             echo "No changes for waifu"
