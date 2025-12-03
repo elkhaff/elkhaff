@@ -1,0 +1,48 @@
+name: Generate snake animation
+
+on:
+  schedule:
+    - cron: "* */12 * * *"
+
+  workflow_dispatch:
+
+  push:
+    branches:
+    - main
+
+jobs:
+  generate:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: generate snake-dark.svg
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: img/snake/snake-dark.svg?palette=github-dark
+
+      - name: generate snake.svg (light)
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: img/snake/snake.svg?palette=github-light
+
+      - name: Commit snake to main
+        run: |
+          git config user.email "elkhaff27@gmail.com"
+          git config user.name "elkhaff[bot]"
+          git pull
+          git add img/snake/
+          if git diff --staged --quiet; then
+            echo "No changes for snake"
+          else
+            git commit -m "update: snake animation"
+            git push
+          fi
