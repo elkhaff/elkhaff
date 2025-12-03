@@ -1,0 +1,43 @@
+name: Auto Update Banner
+
+on:
+  schedule:
+    - cron: "0 */5 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-banner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Banner Reference
+        run: |
+          CURRENT=$(grep -oP 'github-header-banner-\K[0-9]' README.md | head -1)
+          NEXT=$((CURRENT + 1))
+          if [ $NEXT -gt 3 ]; then
+            NEXT=1
+          fi
+          sed -i "s/github-header-banner-[0-9]\.png/github-header-banner-$NEXT.png/g" README.md
+          echo "banner_num=$NEXT" >> $GITHUB_ENV
+
+      - name: Commit Banner Update
+        continue-on-error: true
+        run: |
+          git config user.email "elkhaff27@gmail.com"
+          git config user.name "elkhaff[bot]"
+          git pull
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No banner changes"
+          else
+            git commit -m "rotate: banner ${{ env.banner_num }}"
+            git push
+          fi
