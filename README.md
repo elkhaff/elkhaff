@@ -55,7 +55,11 @@
 
 ---
 
-<img src="./img/snake/snake.svg" alt="Snake animation" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./img/snake/snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./img/snake/snake.svg">
+  <img alt="Snake animation" src="./img/snake/snake.svg">
+</picture>
 
 ---
 
