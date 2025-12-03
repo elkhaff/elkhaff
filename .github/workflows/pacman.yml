@@ -1,0 +1,46 @@
+name: Generate pacman animation
+
+on:
+  schedule:
+    - cron: "* */12 * * *"
+
+  workflow_dispatch:
+
+  push:
+    branches:
+    - main
+
+jobs:
+  generate:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: generate pacman-contribution-graph.svg
+        uses: abozanona/pacman-contribution-graph@main
+        with:
+          github_user_name: ${{ github.repository_owner }}
+
+      - name: Move to img folder
+        run: |
+          mkdir -p img/pacman
+          mv dist/pacman-contribution-graph*.svg img/pacman/ 2>/dev/null || true
+
+      - name: Commit pacman to main
+        run: |
+          git config user.email "elkhaff27@gmail.com"
+          git config user.name "elkhaff[bot]"
+          git pull
+          git add img/pacman/
+          if git diff --staged --quiet; then
+            echo "No changes for pacman"
+          else
+            git commit -m "update: pacman animation"
+            git push
+          fi
