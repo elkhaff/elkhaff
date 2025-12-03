@@ -1,4 +1,4 @@
-![Header](./img/github-header-banner-3.png)
+![Header](./img/github-header-banner-1.png)
 
 <h1 align="center">Hey I'm elkhaff</h1>
 
@@ -65,9 +65,9 @@
 
 ## My Waifu
 
-<!--waifu-37-->
+<!--waifu-38-->
 <div style="position: relative; display: inline-block; width: 100%; text-align: center;">
-<img src="./img/waifu/4~M_ccd.jpg" width="300" style="display: inline-block;">
-<div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 03-12-2025 13:55:50</span></div>
+<img src="./img/waifu/DjgwmRf.jpg" width="300" style="display: inline-block;">
+<div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 03-12-2025 14:27:51</span></div>
 </div>
 <!--waifu-->
