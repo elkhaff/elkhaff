@@ -32,7 +32,6 @@ jobs:
           WAIFU_URL=$(echo $WAIFU_DATA | jq -r '.url')
           echo "url=$WAIFU_URL" >> $GITHUB_OUTPUT
           
-          # Extract ID from URL
           WAIFU_ID=$(echo $WAIFU_URL | grep -oP 'pics/\K[^.]+')
           echo "id=$WAIFU_ID" >> $GITHUB_OUTPUT
 
@@ -43,8 +42,7 @@ jobs:
           WAIFU_ID=${{ steps.waifu.outputs.id }}
           if [ -n "$WAIFU_URL" ] && [ "$WAIFU_URL" != "null" ]; then
             mkdir -p img/waifu
-            
-            # Cek apakah file dengan ID ini sudah ada
+          
             if [ -f "img/waifu/${WAIFU_ID}.jpg" ]; then
               echo "File ${WAIFU_ID}.jpg sudah ada, skip download"
               echo "exists=true" >> $GITHUB_ENV
@@ -70,7 +68,9 @@ jobs:
             sed -i "s|<!--waifu-[0-9]*-->|<!--waifu-$NEXT_COUNTER-->|g" README.md
             sed -i "s|<img src=\"[^\"]*waifu/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
             sed -i "s|<img src=\"https://i.waifu.pics/[^\"]*\" width|<img src=\"./img/waifu/${WAIFU_ID}.jpg\" width|g" README.md
-            sed -i "s|last update: .*</span>|last update: $TIMESTAMP</span>|g" README.md
+            
+            # Fix: Update timestamp dengan pattern yang lebih flexible
+            sed -i "s|last update: [0-9-]* [0-9:]*|last update: $TIMESTAMP|g" README.md
             
             echo "fetch_count=$NEXT_COUNTER" >> $GITHUB_ENV
             echo "waifu_id=$WAIFU_ID" >> $GITHUB_ENV
@@ -80,7 +80,7 @@ jobs:
         continue-on-error: true
         run: |
           git config user.email "elkhaff27@gmail.com"
-          git config user.name "elkaff[bot]"
+          git config user.name "elkhaff[bot]"
           git pull 
           git add README.md img/waifu/
           if git diff --staged --quiet; then
