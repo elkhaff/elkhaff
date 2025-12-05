@@ -8,7 +8,7 @@
   </p>
   <p>
     <img src="https://komarev.com/ghpvc/?username=elkhaff&label=Profile%20views&color=0e75b6&style=flat" alt="Profile views" />
-    <img src="https://img.shields.io/github/languages/code-size/elkhaff/elkhaff" alt="Code Size"/>
+    <img src="https://img.shields.io/github/repo-size/elkhaff/elkhaff" alt="Repo Size"/>
   </p>
 </div>
 
