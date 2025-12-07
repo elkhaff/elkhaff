@@ -71,9 +71,9 @@
 
 ## 💖 My Waifu
 
-<!--waifu-315-->
+<!--waifu-316-->
 <div align="center" style="position: relative; display: inline-block; width: 100%; text-align: center;">
-  <img src="./img/waifu/8TL6ycS.jpg" width="300" style="display: inline-block;">
-  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 07-12-2025 11:39:50</div>
+  <img src="./img/waifu/i1QE8~W.jpg" width="300" style="display: inline-block;">
+  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 07-12-2025 11:54:29</div>
 </div>
 <!--waifu-->
