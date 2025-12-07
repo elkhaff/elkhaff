@@ -1,4 +1,4 @@
-![Header](./img/github-header-banner-3.png)
+![Header](./img/github-header-banner-2.png)
 <h1 align="center">Hey <img src="https://camo.githubusercontent.com/bbc70b6515e817d1943dadf19ca39d94cb2154df20bb1b65f942e418810d2049/68747470733a2f2f656d6f6a69732e736c61636b6d6f6a69732e636f6d2f656d6f6a69732f696d616765732f313538383331353032342f383832332f68797065726b697474792e6769663f31353838333135303234" height="30px" width="30px"> I'm Elkhaff</h1>
 <div align="center">
   <p>
@@ -38,13 +38,25 @@
 ## 🌐 Connect with me
 <p align="center">
   <a href="https://instagram.com/elk_aff">
-    <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=1e1e1e">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=white">
+      <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=1e1e1e" alt="Instagram">
+    </picture>
   </a>
   <a href="https://facebook.com/elkaff27">
-    <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=1e1e1e">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=white">
+      <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=1e1e1e" alt="Facebook">
+    </picture>
   </a>
   <a href="https://tiktok.com/@elkaff27">
-    <img src="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=1e1e1e">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=white">
+      <img src="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=1e1e1e" alt="TikTok">
+    </picture>
   </a>
 </p>
 
@@ -89,26 +101,14 @@
 
 ---
 
-## 💖 Support Me
-<p align="left">
-  <a href="https://tako.id/elkaff">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://f-s.pages.dev/images/o46h">
-      <source media="(prefers-color-scheme: light)" srcset="https://f-s.pages.dev/images/o46h">
-      <img src="https://f-s.pages.dev/images/o46h" alt="Support" width="60" style="vertical-align: middle;">
-    </picture>
-  </a>
-  <a href="https://tako.id/elkaff" style="text-decoration: none; color: inherit; vertical-align: middle;">
-    <strong>tako ↗</strong>
-  </a>
-</p>
+## 💖 Support Me in <a href="https://tako.id/elkaff"><img src="./img/tako.svg" height="30px" width="30px"></a> <a href="https://tako.id/elkaff">tako ↗</a>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
 ## 💖 My Waifu
 <!--waifu-375-->
 <div align="center" style="position: relative; display: inline-block; width: 100%; text-align: center;">
-  <img src="./img/waifu/yn_F4Nt.jpg" width="300" style="display: inline-block;">
-  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 08-12-2025 01:16:24</div>
+  <img src="./img/waifu/DmrSW~9.jpg" width="300" style="display: inline-block;">
+  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 07-12-2025 23:57:36</div>
 </div>
 <!--waifu-->
