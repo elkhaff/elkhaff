@@ -40,21 +40,21 @@
   <a href="https://instagram.com/elk_aff">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=1e1e1e">
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=white">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=black&labelColor=f0f0f0">
       <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=flat-square&logo=Instagram&logoColor=white&labelColor=1e1e1e" alt="Instagram">
     </picture>
   </a>
   <a href="https://facebook.com/elkaff27">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=1e1e1e">
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=white">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=black&labelColor=f0f0f0">
       <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat-square&logo=Facebook&logoColor=white&labelColor=1e1e1e" alt="Facebook">
     </picture>
   </a>
   <a href="https://tiktok.com/@elkaff27">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=1e1e1e">
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=white">
+      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=black&labelColor=f0f0f0">
       <img src="https://img.shields.io/badge/TikTok-%23000000.svg?style=flat-square&logo=TikTok&logoColor=white&labelColor=1e1e1e" alt="TikTok">
     </picture>
   </a>
@@ -101,7 +101,7 @@
 
 ---
 
-## 💖 Support Me in <a href="https://tako.id/elkaff"><img src="./img/tako.svg" height="30px" width="30px"></a> <a href="https://tako.id/elkaff">tako ↗</a>
+## 💖 Support Me in <a href="https://tako.id/elkaff">Tako ↗</a>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
