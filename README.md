@@ -30,9 +30,9 @@
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
 ## My Waifu (gwehj karbit 😛)
-<!--waifu-3701-->
+<!--waifu-3702-->
 <div align="center" style="position: relative; display: inline-block; width: 100%; text-align: center;">
-  <img src="./img/waifu/7P0xXKY.jpg" width="300" style="display: inline-block;">
-  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 25-01-2026 15:19:35</div>
+  <img src="./img/waifu/cu~8th-.jpg" width="300" style="display: inline-block;">
+  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 25-01-2026 15:44:49</div>
 </div>
 <!--waifu-->
