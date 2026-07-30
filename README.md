@@ -43,11 +43,11 @@ const elkhaff = {
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=elkhaff&show_icons=true&hide_border=true&theme=transparent&rank_icon=github&include_all_commits=true" width="100%">
+<img src="https://ghstats.dev/api/card?username=elkhaff" width="100%" alt="GitHub Stats">
 
-<br>
+<br><br>
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=elkhaff&theme=github-compact&hide_border=true&area=true" width="100%">
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=elkhaff&theme=github-compact&hide_border=true&area=true" width="100%" alt="Contribution Graph">
 
 </div>
 
