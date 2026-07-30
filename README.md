@@ -1,38 +1,49 @@
-<h1 align="center">Hey <img src="https://camo.githubusercontent.com/bbc70b6515e817d1943dadf19ca39d94cb2154df20bb1b65f942e418810d2049/68747470733a2f2f656d6f6a69732e736c61636b6d6f6a69732e636f6d2f656d6f6a69732f696d616765732f313538383331353032342f383832332f68797065726b697474792e6769663f31353838333135303234" height="30px" width="30px"> I'm Elkhaff</h1>
-<div align="center">
-  <p>
-    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Open+Sans&duration=1000&pause=600&center=true&width=435&lines=Dengvelongper+pemulaxxx" alt="Typing SVG" /></a>
-  </p>
-</div>
+<div align="center">ELKHAFF
 
-[![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=elkhaff&data=followers,repositories,stars,commits&theme=nautilus)](https://github.com/elkhaff)
+"Developer · Automation · Bot Creator"
 
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=elkhaff&theme=react-dark&hide_border=true" width="100%" alt="Contribution Graph" />
-</p>
+<br><a href="https://github.com/elkhaff">
+  <img src="https://img.shields.io/badge/GitHub-elkhaff-18181B?style=flat-square&logo=github&logoColor=white">
+</a>
+<a href="https://tako.id/elkaff">
+  <img src="https://img.shields.io/badge/Support-Tako-18181B?style=flat-square&logoColor=white">
+</a><br><br>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./img/pacman/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./img/pacman/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="./img/pacman/pacman-contribution-graph-dark.svg">
-</picture>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=15&duration=2800&pause=1000&color=888888&center=true&vCenter=true&width=520&lines=Building+things+that+actually+work.;JavaScript+%7C+Node.js+%7C+Automation;Code.+Create.+Repeat." /></div><br>---
+
+About
+
+«I build bots, automation tools, and random things that somehow turn into projects.»
+
+const elkhaff = {
+  role: "Developer",
+  stack: ["JavaScript", "Node.js"],
+  interests: ["Bots", "Automation", "Web"],
+  philosophy: "Keep it simple."
+};
 
 ---
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./img/snake/snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./img/snake/snake.svg">
-  <img alt="Snake animation" src="./img/snake/snake-dark.svg">
-</picture>
+Stack
 
-## Support Me in <a href="https://tako.id/elkaff">Tako ↗</a>
+<div align="center"><img src="https://skillicons.dev/icons?i=js,nodejs,html,css,git,github,linux,vscode&theme=dark&perline=8"></div>---
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+GitHub Activity
 
-## My Waifu (gwehj karbit 😛)
-<!--waifu-7634-->
-<div align="center" style="position: relative; display: inline-block; width: 100%; text-align: center;">
-  <img src="./img/waifu/P65Fb_X.jpg" width="300" style="display: inline-block;">
-  <div style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: left; font-size: 8px; color: #666;">last update: 30-07-2026 21:35:16</div>
-</div>
-<!--waifu-->
+<div align="center"><img src="https://github-readme-stats.vercel.app/api?username=elkhaff&show_icons=true&hide_border=true&hide_title=true&theme=transparent&rank_icon=github&include_all_commits=true" height="165"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=elkhaff&layout=compact&hide_border=true&hide_title=true&theme=transparent" height="165"><br><br>
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=elkhaff&theme=github-compact&hide_border=true&area=true&radius=8" width="96%"></div>---
+
+Support
+
+<div align="center">If you like my projects, you can support me here.
+
+<br><a href="https://tako.id/elkaff">
+  <img src="https://img.shields.io/badge/☕%20Support%20Me%20on%20Tako-18181B?style=for-the-badge">
+</a></div>---
+
+<div align="center"><br>"Thanks for stopping by."
+
+<br><br>
+
+<img src="https://komarev.com/ghpvc/?username=elkhaff&style=flat-square&color=18181B&label=views"></div>
