@@ -6,37 +6,58 @@
 
 <title>Elkaff — Developer & Bot Creator</title>
 
-<meta name="description" content="Elkaff — Developer, Bot Creator & Automation enthusiast. Explore my projects, social media, Discord community and WhatsApp community.">
-<meta name="keywords" content="Elkaff, Elkhaff, Developer, JavaScript Developer, Node.js Developer, WhatsApp Bot, Discord Bot, Bot Creator, Automation, Indonesia">
+<meta name="description" content="Elkaff — Developer, bot creator, and automation enthusiast. Explore my portfolio, projects, social media, Discord server, WhatsApp community, and other links.">
+<meta name="keywords" content="Elkaff, Elkhaff, Developer, JavaScript Developer, Node.js Developer, WhatsApp Bot, Bot Creator, Automation, Indonesia">
 <meta name="author" content="Elkaff">
 <meta name="creator" content="Elkaff">
+<meta name="publisher" content="Elkaff">
+
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="googlebot" content="index, follow">
-<meta name="theme-color" content="#07090d">
+<meta name="theme-color" content="#080808">
 <meta name="color-scheme" content="dark">
 
 <link rel="canonical" href="https://elkaff.is-a.dev/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Elkaff — Developer & Bot Creator">
-<meta property="og:description" content="Developer, Bot Creator & Automation enthusiast.">
+<meta property="og:description" content="Developer, bot creator, and automation enthusiast.">
 <meta property="og:url" content="https://elkaff.is-a.dev/">
 <meta property="og:site_name" content="Elkaff">
 <meta property="og:locale" content="id_ID">
 <meta property="og:image" content="https://elkaff.is-a.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Elkaff — Developer & Bot Creator">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Elkaff — Developer & Bot Creator">
-<meta name="twitter:description" content="Developer, Bot Creator & Automation enthusiast.">
+<meta name="twitter:description" content="Developer, bot creator, and automation enthusiast.">
 <meta name="twitter:image" content="https://elkaff.is-a.dev/og-image.png">
+
+<link
+rel="icon"
+type="image/svg+xml"
+href="https://api.dicebear.com/9.x/notionists/svg?seed=Elkaff&backgroundColor=0b0d12"
+>
+
+<link
+rel="apple-touch-icon"
+href="https://api.dicebear.com/9.x/notionists/svg?seed=Elkaff&backgroundColor=0b0d12"
+>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
 
 <script type="application/ld+json">
 {
@@ -45,7 +66,7 @@
   "name": "Elkaff",
   "url": "https://elkaff.is-a.dev/",
   "jobTitle": "Developer",
-  "description": "Developer, Bot Creator and Automation enthusiast.",
+  "description": "Developer, bot creator, and automation enthusiast.",
   "sameAs": [
     "https://github.com/elkhaff",
     "https://instagram.com/elk_aff",
@@ -61,16 +82,15 @@
 
 <style>
 :root {
-  --bg: #07090d;
-  --text: #f5f7fa;
-  --muted: #8b93a1;
-  --dim: #626a78;
-  --glass: rgba(255,255,255,.045);
-  --glass-hover: rgba(255,255,255,.085);
-  --border: rgba(255,255,255,.10);
-  --border-hover: rgba(255,255,255,.19);
-  --blue: #229ed9;
-  --shadow: rgba(0,0,0,.32);
+  --bg: #080808;
+  --card: rgba(18, 18, 18, .72);
+  --card-hover: rgba(28, 28, 28, .92);
+  --text: #f5f5f5;
+  --muted: #888;
+  --subtle: #666;
+  --border: rgba(255, 255, 255, .08);
+  --border-hover: rgba(255, 255, 255, .16);
+  --shadow: rgba(0, 0, 0, .45);
 }
 
 * {
@@ -90,242 +110,198 @@ body {
   background:
     radial-gradient(
       circle at 50% -10%,
-      rgba(29,155,240,.14),
+      rgba(255, 255, 255, .11),
       transparent 35%
     ),
-    radial-gradient(
-      circle at 100% 70%,
-      rgba(88,101,242,.08),
-      transparent 30%
-    ),
-    #07090d;
+    var(--bg);
+
+  display: flex;
+  justify-content: center;
   overflow-x: hidden;
-  position: relative;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body::before {
   content: "";
   position: fixed;
-  width: 420px;
-  height: 420px;
-  left: 50%;
-  top: -170px;
-  transform: translateX(-50%);
-  background: rgba(29,155,240,.10);
-  filter: blur(110px);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  animation: glow 8s ease-in-out infinite alternate;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  width: 260px;
-  height: 260px;
-  right: -100px;
-  bottom: 5%;
-  background: rgba(88,101,242,.07);
-  filter: blur(90px);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes glow {
-  from {
-    transform: translateX(-50%) scale(1);
-    opacity: .6;
-  }
-
-  to {
-    transform: translateX(-50%) scale(1.25);
-    opacity: 1;
-  }
-}
-
-.grid {
-  position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
-  opacity: .3;
 
-  background-image:
-    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, .018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, .018) 1px,
+      transparent 1px
+    );
 
-  background-size: 42px 42px;
+  background-size: 40px 40px;
 
-  mask-image: linear-gradient(to bottom, black, transparent 80%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 80%);
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 85%
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 85%
+  );
 }
 
 .container {
-  position: relative;
-  z-index: 2;
-
   width: 100%;
   max-width: 520px;
 
-  margin: auto;
-  padding: 45px 18px 30px;
+  padding: 55px 20px 35px;
+
+  position: relative;
+  z-index: 2;
 }
 
 .profile {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 34px;
+
   animation: fadeUp .7s ease both;
 }
 
-.avatar-wrap {
+.avatar-wrapper {
+  display: inline-flex;
   position: relative;
-  width: 105px;
-  height: 105px;
-  margin: 0 auto 18px;
+
+  margin-bottom: 18px;
 }
 
 .avatar {
-  width: 105px;
-  height: 105px;
-  object-fit: cover;
+  width: 92px;
+  height: 92px;
+
   display: block;
+
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.12);
-  background: #101218;
+  object-fit: cover;
+
+  border: 1px solid rgba(255, 255, 255, .14);
+
+  background: #0b0d12;
 
   box-shadow:
-    0 0 0 7px rgba(255,255,255,.025),
-    0 18px 55px rgba(0,0,0,.5);
+    0 0 0 7px rgba(255, 255, 255, .025),
+    0 15px 50px rgba(0, 0, 0, .5);
 
-  transition: .3s ease;
+  transition: transform .3s ease;
 }
 
 .avatar:hover {
-  transform: scale(1.045);
+  transform: scale(1.05);
 }
 
-.online {
+.status {
   position: absolute;
-  width: 17px;
-  height: 17px;
-  right: 3px;
+
+  right: 2px;
   bottom: 5px;
-  border-radius: 50%;
-  background: #31d158;
+
+  width: 16px;
+  height: 16px;
+
+  background: #35d366;
+
   border: 3px solid var(--bg);
-  box-shadow: 0 0 10px rgba(49,209,88,.7);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 9px rgba(53, 211, 102, .55);
 }
 
 .name {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+
+  gap: 6px;
 
   font-size: 30px;
-  line-height: 1;
   font-weight: 800;
+
   letter-spacing: -1.5px;
+  line-height: 1.1;
 }
 
 .verified {
   position: relative;
-  width: 21px;
-  height: 21px;
-  flex-shrink: 0;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  color: #fff;
-  background: #229ed9;
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+
+  background: #0866ff;
 
   border-radius: 50%;
 
-  clip-path: polygon(
-    50% 0%,
-    61% 4%,
-    71% 2%,
-    79% 9%,
-    90% 11%,
-    91% 22%,
-    98% 30%,
-    94% 41%,
-    100% 50%,
-    94% 60%,
-    98% 70%,
-    90% 78%,
-    91% 90%,
-    80% 91%,
-    71% 98%,
-    61% 95%,
-    50% 100%,
-    40% 95%,
-    29% 98%,
-    21% 91%,
-    10% 90%,
-    9% 79%,
-    2% 70%,
-    6% 60%,
-    0% 50%,
-    6% 40%,
-    2% 30%,
-    10% 22%,
-    9% 11%,
-    21% 9%,
-    29% 2%,
-    40% 4%
-  );
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, .2),
+    inset 0 0 0 1px rgba(255, 255, 255, .08);
 
-  box-shadow: 0 3px 12px rgba(34,158,217,.35);
+  vertical-align: middle;
+}
+
+.verified::before {
+  content: "";
+
+  position: absolute;
+
+  width: 7px;
+  height: 4px;
+
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+
+  transform:
+    rotate(-45deg)
+    translateY(-1px);
+
+  border-radius: 1px;
 }
 
 .verified i {
-  font-size: 9px;
-  z-index: 2;
+  display: none;
 }
 
 .bio {
-  margin-top: 10px;
+  margin-top: 9px;
+
   color: var(--muted);
-  font-size: 13px;
+
+  font-size: 14px;
   line-height: 1.6;
 }
 
-.status {
-  display: inline-flex;
-  align-items: center;
+.location {
+  margin-top: 10px;
 
-  margin-top: 13px;
-  padding: 7px 12px;
+  color: var(--subtle);
 
-  border: 1px solid var(--border);
-  border-radius: 999px;
-
-  background: rgba(255,255,255,.035);
-
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  color: #9ba3b0;
-  font-size: 11px;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  margin-right: 7px;
-  border-radius: 50%;
-  background: #31d158;
-  box-shadow: 0 0 9px #31d158;
+  font-size: 12px;
 }
 
 .links {
   display: flex;
   flex-direction: column;
+
   gap: 11px;
 }
 
@@ -335,124 +311,75 @@ body::after {
   display: flex;
   align-items: center;
 
-  min-height: 65px;
+  min-height: 64px;
+
   padding: 10px 15px;
 
-  color: var(--text);
   text-decoration: none;
+  color: var(--text);
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.105),
-      rgba(255,255,255,.035)
-    );
+  background: var(--card);
 
-  border: 1px solid rgba(255,255,255,.13);
-  border-radius: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
 
-  backdrop-filter:
-    blur(30px)
-    saturate(180%);
-
-  -webkit-backdrop-filter:
-    blur(30px)
-    saturate(180%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
   box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.10),
-    inset 0 -1px 1px rgba(0,0,0,.12),
-    0 12px 35px var(--shadow);
-
-  overflow: hidden;
+    0 10px 35px var(--shadow);
 
   transition:
     transform .25s ease,
     background .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease;
+    border-color .25s ease;
 
   animation: fadeUp .6s ease both;
 }
 
-.link:nth-child(1) { animation-delay: .08s; }
-.link:nth-child(2) { animation-delay: .13s; }
-.link:nth-child(3) { animation-delay: .18s; }
-.link:nth-child(4) { animation-delay: .23s; }
-.link:nth-child(5) { animation-delay: .28s; }
-.link:nth-child(6) { animation-delay: .33s; }
-.link:nth-child(7) { animation-delay: .38s; }
-.link:nth-child(8) { animation-delay: .43s; }
-
-.link::before {
-  content: "";
-
-  position: absolute;
-  top: -80%;
-  left: -30%;
-
-  width: 160%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.075),
-      transparent 70%
-    );
-
-  transform: rotate(-3deg);
-
-  pointer-events: none;
+.link:nth-child(1) {
+  animation-delay: .08s;
 }
 
-.link::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: -120%;
-
-  width: 70%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.05),
-      transparent
-    );
-
-  transform: skewX(-18deg);
-  transition: .7s ease;
-  pointer-events: none;
+.link:nth-child(2) {
+  animation-delay: .14s;
 }
 
-.link:hover::after {
-  left: 140%;
+.link:nth-child(3) {
+  animation-delay: .20s;
+}
+
+.link:nth-child(4) {
+  animation-delay: .26s;
+}
+
+.link:nth-child(5) {
+  animation-delay: .32s;
+}
+
+.link:nth-child(6) {
+  animation-delay: .38s;
+}
+
+.link:nth-child(7) {
+  animation-delay: .44s;
+}
+
+.link:nth-child(8) {
+  animation-delay: .50s;
 }
 
 .link:hover {
-  transform: translateY(-3px) scale(1.008);
+  transform: translateY(-3px);
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.14),
-      rgba(255,255,255,.055)
-    );
+  background: var(--card-hover);
 
-  border-color: rgba(255,255,255,.20);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.13),
-    0 18px 45px rgba(0,0,0,.35);
+  border-color: var(--border-hover);
 }
 
 .icon {
-  width: 43px;
-  height: 43px;
+  width: 42px;
+  height: 42px;
 
   flex-shrink: 0;
 
@@ -460,21 +387,17 @@ body::after {
   align-items: center;
   justify-content: center;
 
-  border-radius: 13px;
+  border-radius: 12px;
 
-  background: rgba(255,255,255,.075);
-  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255, 255, 255, .055);
 
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.08),
-    0 5px 15px rgba(0,0,0,.15);
+  border: 1px solid rgba(255, 255, 255, .06);
 
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  font-size: 17px;
 
-  font-size: 18px;
+  color: #ddd;
 
-  transition: .25s ease;
+  transition: transform .25s ease;
 }
 
 .link:hover .icon {
@@ -483,18 +406,22 @@ body::after {
 
 .link-info {
   flex: 1;
-  min-width: 0;
+
   margin-left: 13px;
+
+  min-width: 0;
 }
 
 .link-title {
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .link-desc {
   margin-top: 3px;
-  color: var(--muted);
+
+  color: #777;
+
   font-size: 11px;
 
   white-space: nowrap;
@@ -504,179 +431,64 @@ body::after {
 
 .arrow {
   margin-left: 10px;
-  color: #606978;
-  font-size: 11px;
+
+  color: #555;
+
+  font-size: 12px;
+
   transition: .25s ease;
 }
 
 .link:hover .arrow {
   color: #fff;
+
   transform: translateX(3px);
 }
 
-.portfolio .icon {
-  color: #fff;
-  background: linear-gradient(135deg,#5865f2,#7289da);
-}
-
 .discord .icon {
-  color: #fff;
-  background: #5865f2;
+  color: #5865f2;
 }
 
 .whatsapp .icon {
-  color: #fff;
-  background: #25d366;
-}
-
-.channel .icon {
-  color: #fff;
-  background: #128c7e;
+  color: #25d366;
 }
 
 .instagram .icon {
+  color: #e1306c;
+}
+
+.tiktok .icon {
   color: #fff;
-  background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
 }
 
-.facebook .icon {
+.github .icon {
   color: #fff;
-  background: #1877f2;
 }
 
-.email .icon {
-  color: #fff;
-  background: #252a34;
+.support .icon {
+  color: #ffd166;
 }
 
-.support {
-  position: relative;
-  overflow: hidden;
+.divider {
+  height: 1px;
 
-  margin-top: 24px;
-  padding: 19px;
+  margin: 28px 0;
 
-  border-radius: 22px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.10),
-      rgba(255,255,255,.035)
-    );
-
-  border: 1px solid rgba(255,255,255,.13);
-
-  backdrop-filter:
-    blur(30px)
-    saturate(180%);
-
-  -webkit-backdrop-filter:
-    blur(30px)
-    saturate(180%);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.10),
-    0 15px 45px rgba(0,0,0,.28);
-
-  animation: fadeUp .7s ease .45s both;
-}
-
-.support::after {
-  content: "";
-
-  position: absolute;
-  top: -70%;
-  left: -20%;
-
-  width: 140%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.075),
-      transparent 70%
-    );
-
-  transform: rotate(-3deg);
-  pointer-events: none;
-}
-
-.support-title {
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.support-desc {
-  margin-top: 5px;
-  margin-bottom: 14px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.tako {
-  position: relative;
-  z-index: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  width: 100%;
-  padding: 12px;
-
-  border-radius: 13px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #238af0,
-      #1674d2
-    );
-
-  border: 1px solid rgba(255,255,255,.18);
-
-  color: #fff;
-  text-decoration: none;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.25),
-    0 7px 20px rgba(24,119,242,.25);
-
-  transition: .25s ease;
-}
-
-.tako:hover {
-  background:
-    linear-gradient(
-      180deg,
-      #3c9bff,
-      #1979dc
-    );
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.3),
-    0 12px 30px rgba(24,119,242,.32);
+  background: var(--border);
 }
 
 .socials {
   display: flex;
   justify-content: center;
+
   gap: 10px;
-  margin-top: 22px;
+
+  margin-bottom: 28px;
 }
 
 .social {
-  width: 43px;
-  height: 43px;
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
@@ -684,22 +496,11 @@ body::after {
 
   border-radius: 13px;
 
-  color: #9ba3b0;
-  background: rgba(255,255,255,.055);
+  color: #999;
 
-  border: 1px solid rgba(255,255,255,.11);
+  background: rgba(255, 255, 255, .035);
 
-  backdrop-filter:
-    blur(25px)
-    saturate(180%);
-
-  -webkit-backdrop-filter:
-    blur(25px)
-    saturate(180%);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.08),
-    0 8px 25px rgba(0,0,0,.22);
+  border: 1px solid var(--border);
 
   text-decoration: none;
 
@@ -708,29 +509,32 @@ body::after {
 
 .social:hover {
   color: #fff;
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.18);
-  transform: translateY(-3px) scale(1.04);
-}
 
-.social.tiktok:hover {
-  background: #000;
-}
+  background: rgba(255, 255, 255, .09);
 
-.social.github:hover {
-  background: #24292f;
-}
-
-.social.tako:hover {
-  background: #1877f2;
+  transform: translateY(-3px);
 }
 
 footer {
   text-align: center;
-  margin-top: 25px;
-  padding-bottom: 15px;
-  color: var(--dim);
+
+  color: #555;
+
   font-size: 11px;
+
+  line-height: 1.8;
+}
+
+footer a {
+  color: #777;
+
+  text-decoration: none;
+
+  transition: color .2s ease;
+}
+
+footer a:hover {
+  color: #fff;
 }
 
 @keyframes fadeUp {
@@ -747,30 +551,34 @@ footer {
 
 @media (max-width: 480px) {
   .container {
-    padding: 35px 14px 25px;
+    padding: 45px 15px 30px;
   }
 
   .name {
-    font-size: 28px;
-  }
-
-  .avatar,
-  .avatar-wrap {
-    width: 98px;
-    height: 98px;
+    font-size: 27px;
   }
 
   .link {
-    min-height: 62px;
+    min-height: 61px;
+  }
+
+  .avatar {
+    width: 88px;
+    height: 88px;
+  }
+
+  .verified {
+    width: 19px;
+    height: 19px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
-  *::before,
-  *::after {
+  *::before {
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 </style>
@@ -778,81 +586,112 @@ footer {
 
 <body>
 
-<div class="grid"></div>
-
 <main class="container">
 
 <header class="profile">
 
-<div class="avatar-wrap">
+<div class="avatar-wrapper">
 
 <img
 class="avatar"
 src="https://api.dicebear.com/9.x/notionists/svg?seed=Elkaff&backgroundColor=0b0d12"
 alt="Elkaff profile picture"
-width="105"
-height="105"
+width="92"
+height="92"
+loading="eager"
+fetchpriority="high"
 >
 
-<span class="online"></span>
+<span
+class="status"
+aria-label="Online"
+></span>
 
 </div>
 
 <h1 class="name">
+
 Elkaff
-<span class="verified" title="Verified">
-<i class="fas fa-check"></i>
-</span>
+
+<span
+class="verified"
+title="Verified"
+aria-label="Verified"
+></span>
+
 </h1>
 
 <p class="bio">
 Developer · Bot Creator · Automation
 </p>
 
-<div class="status">
-<span class="status-dot"></span>
-Building something cool
-</div>
+<p class="location">
+<i class="fa-solid fa-location-dot"></i>
+Indonesia
+</p>
 
 </header>
 
-<nav class="links" aria-label="Social links">
+<nav
+class="links"
+aria-label="Social links"
+>
 
 <a
-class="link portfolio"
+class="link"
 href="https://elkaff.is-a.dev"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fas fa-code"></i>
+<i class="fa-solid fa-code"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">My Portfolio</div>
-<div class="link-desc">Projects & personal website</div>
+
+<div class="link-title">
+Portfolio
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+Projects & personal website
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
+
 <a
-class="link"
+class="link github"
 href="https://github.com/elkhaff"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fab fa-github"></i>
+<i class="fa-brands fa-github"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">GitHub</div>
-<div class="link-desc">Open source & projects</div>
+
+<div class="link-title">
+GitHub
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+Open source & projects
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
+
 
 <a
 class="link discord"
@@ -860,17 +699,55 @@ href="https://discord.gg/uvpE7NsU73"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fab fa-discord"></i>
+<i class="fa-brands fa-discord"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">The Hideout</div>
-<div class="link-desc">Join my Discord community</div>
+
+<div class="link-title">
+The Hideout
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+Join my Discord server
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
+
+
+<a
+class="link whatsapp"
+href="https://whatsapp.com/channel/0029VawVHH6FXUueZZVhXz3V"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+<div class="icon">
+<i class="fa-brands fa-whatsapp"></i>
+</div>
+
+<div class="link-info">
+
+<div class="link-title">
+WhatsApp Channel
+</div>
+
+<div class="link-desc">
+Updates & announcements
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
+</a>
+
 
 <a
 class="link whatsapp"
@@ -878,35 +755,27 @@ href="https://chat.whatsapp.com/CuZEKz1QMcUAfKdCdngld9?s=cl&p=a&mlu=0"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fab fa-whatsapp"></i>
+<i class="fa-solid fa-users"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">WhatsApp Group</div>
-<div class="link-desc">Join the community</div>
+
+<div class="link-title">
+WhatsApp Group
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+Join the community
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
-<a
-class="link channel"
-href="https://whatsapp.com/channel/0029VawVHH6FXUueZZVhXz3V"
-target="_blank"
-rel="noopener noreferrer"
->
-<div class="icon">
-<i class="fas fa-bullhorn"></i>
-</div>
-
-<div class="link-info">
-<div class="link-title">WhatsApp Channel</div>
-<div class="link-desc">Updates & announcements</div>
-</div>
-
-<i class="fas fa-chevron-right arrow"></i>
-</a>
 
 <a
 class="link instagram"
@@ -914,118 +783,203 @@ href="https://instagram.com/elk_aff"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fab fa-instagram"></i>
+<i class="fa-brands fa-instagram"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">Instagram</div>
-<div class="link-desc">@elk_aff</div>
+
+<div class="link-title">
+Instagram
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+@elk_aff
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
+
 <a
-class="link"
+class="link tiktok"
 href="https://tiktok.com/@elkaff27"
 target="_blank"
 rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fab fa-tiktok"></i>
+<i class="fa-brands fa-tiktok"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">TikTok</div>
-<div class="link-desc">@elkaff27</div>
+
+<div class="link-title">
+TikTok
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+@elkaff27
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
+
 <a
-class="link email"
-href="mailto:hi@elkaff.is-a.dev"
+class="link"
+href="https://facebook.com/elkaff27"
+target="_blank"
+rel="noopener noreferrer"
 >
+
 <div class="icon">
-<i class="fas fa-envelope"></i>
+<i class="fa-brands fa-facebook"></i>
 </div>
 
 <div class="link-info">
-<div class="link-title">Email Me</div>
-<div class="link-desc">hi@elkaff.is-a.dev</div>
+
+<div class="link-title">
+Facebook
 </div>
 
-<i class="fas fa-chevron-right arrow"></i>
+<div class="link-desc">
+Connect with me on Facebook
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
-</nav>
-
-<section class="support">
-
-<div class="support-title">
-Support my work
-</div>
-
-<div class="support-desc">
-Like my projects? You can support me through Tako.
-</div>
 
 <a
-class="tako"
+class="link support"
 href="https://tako.id/elkaff"
 target="_blank"
 rel="noopener noreferrer"
 >
-<i class="fas fa-heart"></i>
-SUPPORT ME ON TAKO
+
+<div class="icon">
+<i class="fa-solid fa-mug-hot"></i>
+</div>
+
+<div class="link-info">
+
+<div class="link-title">
+Support Me
+</div>
+
+<div class="link-desc">
+Support my work on Tako
+</div>
+
+</div>
+
+<i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
+
 </a>
 
-</section>
+</nav>
+
+<div class="divider"></div>
 
 <div class="socials">
 
 <a
-class="social tiktok"
-href="https://tiktok.com/@elkaff27"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="TikTok"
->
-<i class="fab fa-tiktok"></i>
-</a>
-
-<a
-class="social github"
+class="social"
 href="https://github.com/elkhaff"
 target="_blank"
 rel="noopener noreferrer"
 aria-label="GitHub"
 >
-<i class="fab fa-github"></i>
+
+<i class="fa-brands fa-github"></i>
+
 </a>
 
 <a
-class="social tako"
+class="social"
+href="https://discord.gg/uvpE7NsU73"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Discord"
+>
+
+<i class="fa-brands fa-discord"></i>
+
+</a>
+
+<a
+class="social"
+href="https://instagram.com/elk_aff"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Instagram"
+>
+
+<i class="fa-brands fa-instagram"></i>
+
+</a>
+
+<a
+class="social"
+href="https://tiktok.com/@elkaff27"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="TikTok"
+>
+
+<i class="fa-brands fa-tiktok"></i>
+
+</a>
+
+<a
+class="social"
 href="https://tako.id/elkaff"
 target="_blank"
 rel="noopener noreferrer"
-aria-label="Tako"
+aria-label="Support"
 >
-<i class="fas fa-heart"></i>
+
+<i class="fa-solid fa-heart"></i>
+
 </a>
 
 </div>
 
 <footer>
-© <span id="year"></span> Elkaff · Built with curiosity.
+
+<p>
+© <span id="year"></span> Elkaff. All rights reserved.
+</p>
+
+<p>
+Built with simplicity ·
+<a
+href="https://elkaff.is-a.dev"
+target="_blank"
+rel="noopener noreferrer"
+>
+elkaff.is-a.dev
+</a>
+</p>
+
 </footer>
 
 </main>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent =
+new Date().getFullYear();
 </script>
 
 </body>
