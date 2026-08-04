@@ -3,37 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>Elkaff — Developer & Bot Creator</title>
-
 <meta name="description" content="Elkaff — Developer, bot creator, and automation enthusiast. Explore my portfolio, projects, social media, Discord server, WhatsApp community, and other links.">
 <meta name="keywords" content="Elkaff, Elkhaff, Developer, JavaScript Developer, Node.js Developer, WhatsApp Bot, Bot Creator, Automation, Indonesia">
 <meta name="author" content="Elkaff">
-
 <meta name="theme-color" content="#050505">
 <meta name="color-scheme" content="dark">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 <style>
-/* =========================================
-   VARIABEL & RESET
-   ========================================= */
 :root {
   --bg-color: #050505;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-subtle: #64748b;
-  
-  /* Glassmorphism Variables */
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-hover: rgba(255, 255, 255, 0.08);
-  
-  /* Brand Colors untuk efek Hover */
   --c-portfolio: #a855f7;
   --c-github: #ffffff;
   --c-discord: #5865F2;
@@ -69,20 +57,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* =========================================
-   AMBIENT BACKGROUND & GRID
-   ========================================= */
 .bg-grid {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: 
-    linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  transform: translateZ(0);
 }
 
 .bg-glow {
@@ -91,20 +76,22 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
+  filter: blur(70px);
+  opacity: 0.35;
   animation: floatOrb 15s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .glow-orb.orb-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
   top: -100px;
   left: 20%;
   animation-delay: 0s;
@@ -113,15 +100,12 @@ body {
 .glow-orb.orb-2 {
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(225,48,108,0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(225,48,108,0.15) 0%, transparent 70%);
   bottom: 10%;
   right: -50px;
   animation-delay: -5s;
 }
 
-/* =========================================
-   CONTAINER & LAYOUT
-   ========================================= */
 .container {
   width: 100%;
   max-width: 560px;
@@ -132,13 +116,9 @@ body {
   flex-direction: column;
 }
 
-/* =========================================
-   PROFILE SECTION
-   ========================================= */
 .profile {
   text-align: center;
   margin-bottom: 40px;
-  animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .avatar-wrapper {
@@ -154,17 +134,14 @@ body {
   border-radius: 50%;
   background: #0f172a;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 0 0 8px rgba(255, 255, 255, 0.02),
-    0 24px 48px -12px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.02), 0 24px 48px -12px rgba(0, 0, 0, 0.6);
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+  transform: translateZ(0);
 }
 
 .avatar-wrapper:hover .avatar {
   transform: scale(1.08) translateY(-4px);
-  box-shadow: 
-    0 0 0 8px rgba(255, 255, 255, 0.04),
-    0 30px 60px -12px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.04), 0 30px 60px -12px rgba(99, 102, 241, 0.3);
   border-color: rgba(99, 102, 241, 0.5);
 }
 
@@ -177,8 +154,9 @@ body {
   background: #10b981;
   border: 3px solid var(--bg-color);
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-  animation: statusPulse 2s infinite;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  animation: statusPulse 2.5s infinite;
+  will-change: box-shadow;
 }
 
 .name {
@@ -211,13 +189,13 @@ body {
   height: 28px;
   vertical-align: middle;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  transition: transform 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .name:active .verified-img {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 10px rgba(0, 149, 246, 0.8));
+  filter: drop-shadow(0 0 10px rgba(0, 149, 246, 0.6));
 }
 
 .bio {
@@ -255,9 +233,6 @@ body {
   color: #fff;
 }
 
-/* =========================================
-   LINKS SECTION
-   ========================================= */
 .links {
   display: flex;
   flex-direction: column;
@@ -274,12 +249,12 @@ body {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow: hidden;
+  transform: translateZ(0);
 }
 
 .link::before {
@@ -299,23 +274,13 @@ body {
 }
 
 .link:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-4px) scale(1.02);
   background: var(--glass-hover);
 }
 
 .link:active {
   transform: scale(0.98);
 }
-
-.link:nth-child(1) { animation-delay: 0.1s; }
-.link:nth-child(2) { animation-delay: 0.15s; }
-.link:nth-child(3) { animation-delay: 0.2s; }
-.link:nth-child(4) { animation-delay: 0.25s; }
-.link:nth-child(5) { animation-delay: 0.3s; }
-.link:nth-child(6) { animation-delay: 0.35s; }
-.link:nth-child(7) { animation-delay: 0.4s; }
-.link:nth-child(8) { animation-delay: 0.45s; }
-.link:nth-child(9) { animation-delay: 0.5s; }
 
 .icon {
   width: 48px;
@@ -365,42 +330,27 @@ body {
   transform: translateX(4px) scale(1.1);
 }
 
-/* =========================================
-   HOVER COLORS BY BRAND
-   ========================================= */
-.link.portfolio:hover { border-color: rgba(168,85,247,0.5); box-shadow: 0 10px 30px rgba(168,85,247,0.15); }
+.link.portfolio:hover { border-color: rgba(168,85,247,0.5); box-shadow: 0 10px 30px rgba(168,85,247,0.1); }
 .link.portfolio:hover .icon { background: rgba(168,85,247,0.15); color: var(--c-portfolio); transform: scale(1.1) rotate(-5deg); }
-
-.link.github:hover { border-color: rgba(255,255,255,0.4); box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
+.link.github:hover { border-color: rgba(255,255,255,0.4); box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
 .link.github:hover .icon { background: rgba(255,255,255,0.15); color: var(--c-github); transform: scale(1.1) rotate(-5deg); }
-
-.link.discord:hover { border-color: rgba(88,101,242,0.5); box-shadow: 0 10px 30px rgba(88,101,242,0.15); }
+.link.discord:hover { border-color: rgba(88,101,242,0.5); box-shadow: 0 10px 30px rgba(88,101,242,0.1); }
 .link.discord:hover .icon { background: rgba(88,101,242,0.15); color: var(--c-discord); transform: scale(1.1) rotate(-5deg); }
-
-.link.whatsapp:hover { border-color: rgba(37,211,102,0.5); box-shadow: 0 10px 30px rgba(37,211,102,0.15); }
+.link.whatsapp:hover { border-color: rgba(37,211,102,0.5); box-shadow: 0 10px 30px rgba(37,211,102,0.1); }
 .link.whatsapp:hover .icon { background: rgba(37,211,102,0.15); color: var(--c-whatsapp); transform: scale(1.1) rotate(-5deg); }
-
-.link.instagram:hover { border-color: rgba(225,48,108,0.5); box-shadow: 0 10px 30px rgba(225,48,108,0.15); }
+.link.instagram:hover { border-color: rgba(225,48,108,0.5); box-shadow: 0 10px 30px rgba(225,48,108,0.1); }
 .link.instagram:hover .icon { background: rgba(225,48,108,0.15); color: var(--c-instagram); transform: scale(1.1) rotate(-5deg); }
-
-.link.tiktok:hover { border-color: rgba(37,244,238,0.5); box-shadow: 0 10px 30px rgba(37,244,238,0.15); }
+.link.tiktok:hover { border-color: rgba(37,244,238,0.5); box-shadow: 0 10px 30px rgba(37,244,238,0.1); }
 .link.tiktok:hover .icon { background: rgba(37,244,238,0.15); color: var(--c-tiktok); transform: scale(1.1) rotate(-5deg); }
-
-.link.facebook:hover { border-color: rgba(24,119,242,0.5); box-shadow: 0 10px 30px rgba(24,119,242,0.15); }
+.link.facebook:hover { border-color: rgba(24,119,242,0.5); box-shadow: 0 10px 30px rgba(24,119,242,0.1); }
 .link.facebook:hover .icon { background: rgba(24,119,242,0.15); color: var(--c-facebook); transform: scale(1.1) rotate(-5deg); }
-
-.link.support:hover { border-color: rgba(255,183,3,0.5); box-shadow: 0 10px 30px rgba(255,183,3,0.15); }
+.link.support:hover { border-color: rgba(255,183,3,0.5); box-shadow: 0 10px 30px rgba(255,183,3,0.1); }
 .link.support:hover .icon { background: rgba(255,183,3,0.15); color: var(--c-support); transform: scale(1.1) rotate(-5deg); }
 
-/* =========================================
-   FOOTER & SOCIALS
-   ========================================= */
 .divider {
   height: 1px;
   margin: 36px 0 28px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.6s;
 }
 
 .socials {
@@ -409,8 +359,6 @@ body {
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 36px;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.7s;
 }
 
 .social {
@@ -426,6 +374,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translateZ(0);
 }
 
 .social:hover {
@@ -446,8 +395,6 @@ footer {
   color: var(--text-subtle);
   font-size: 13px;
   line-height: 1.8;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.8s;
 }
 
 footer a {
@@ -461,17 +408,16 @@ footer a:hover {
   color: #fff;
 }
 
-/* =========================================
-   ANIMASI KEYFRAMES
-   ========================================= */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-15px); }
-  to { opacity: 1; transform: translateY(0); }
+.scroll-anim.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 @keyframes floatOrb {
@@ -480,7 +426,7 @@ footer a:hover {
 }
 
 @keyframes statusPulse {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
   70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
   100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
@@ -495,71 +441,55 @@ footer a:hover {
   animation: blink 4s infinite;
 }
 
-/* =========================================
-   RESPONSIVITAS (KHUSUS MOBILE)
-   ========================================= */
 @media (max-width: 600px) {
   .container {
     padding: 40px 16px 25px;
   }
-  
   .avatar {
     width: 92px;
     height: 92px;
   }
-  
   .name {
     font-size: 24px;
     gap: 3px; 
   }
-  
   .verified-img {
     width: 24px;
     height: 24px;
   }
-  
   .bio {
     font-size: 14px;
   }
-  
   .links {
     gap: 12px; 
   }
-
   .link {
     padding: 10px 14px; 
     border-radius: 18px;
     min-height: 56px;
   }
-  
   .icon {
     width: 40px;
     height: 40px;
     font-size: 17px;
     border-radius: 12px;
   }
-  
   .link-info {
     margin-left: 14px;
   }
-  
   .link-title {
     font-size: 14px;
     margin-bottom: 2px;
   }
-  
   .link-desc {
     font-size: 11.5px;
   }
-
   .arrow {
     font-size: 12px;
   }
-  
   .socials {
     gap: 10px;
   }
-  
   .social {
     width: 42px;
     height: 42px;
@@ -577,10 +507,14 @@ footer a:hover {
   .glow-orb {
     animation: none;
   }
+  .scroll-anim {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 </style>
 </head>
-
 <body>
 
 <div class="bg-grid"></div>
@@ -590,11 +524,8 @@ footer a:hover {
 </div>
 
 <main class="container">
-
-  <header class="profile">
+  <header class="profile scroll-anim">
     <div class="avatar-wrapper">
-      
-      <!-- Inline SVG Karakter -->
       <svg viewBox="0 0 200 200" class="avatar" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="circleClip">
@@ -605,62 +536,41 @@ footer a:hover {
             <stop offset="100%" stop-color="#f8ad9d" />
           </linearGradient>
         </defs>
-
         <g clip-path="url(#circleClip)">
-          <!-- Background Base -->
           <rect width="200" height="200" fill="#0f172a" />
-
-          <!-- Pakaian -->
           <path d="M15 220 C15 140 185 140 185 220" fill="#1e293b" />
           <path d="M60 220 C60 170 140 170 140 220" fill="#0f172a" />
           <path d="M85 160 L85 190" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
           <path d="M115 160 L115 190" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-
-          <!-- Leher -->
           <rect x="85" y="110" width="30" height="50" fill="url(#skin)" />
           <path d="M85 130 Q100 145 115 130 L115 110 L85 110 Z" fill="#e5989b" opacity="0.5" /> 
-
-          <!-- Wajah Dasar -->
           <rect x="50" y="45" width="100" height="105" rx="40" fill="url(#skin)" />
-
-          <!-- Telinga -->
           <rect x="40" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
           <rect x="145" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
-
-          <!-- Rambut -->
           <path d="M45 80 Q45 15 100 15 Q155 15 155 80 Z" fill="#111827" />
           <path d="M45 60 Q70 30 100 45 Q130 30 155 60 Q150 15 100 15 Q50 15 45 60" fill="#030712" />
           <path d="M50 45 Q70 25 90 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
           <path d="M150 45 Q130 25 110 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
-
-          <!-- Alis -->
           <g class="eyebrow">
             <path d="M60 75 Q75 70 85 75" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round" />
             <path d="M115 75 Q125 70 140 75" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round" />
           </g>
-
-          <!-- Kacamata -->
           <rect x="55" y="80" width="38" height="28" rx="8" fill="rgba(255,255,255,0.15)" stroke="#334155" stroke-width="4" />
           <rect x="107" y="80" width="38" height="28" rx="8" fill="rgba(255,255,255,0.15)" stroke="#334155" stroke-width="4" />
           <line x1="93" y1="94" x2="107" y2="94" stroke="#334155" stroke-width="4" />
-
-          <!-- Mata (Beranimasi Kedip) -->
           <g class="eyes">
             <circle cx="74" cy="94" r="6.5" fill="#111827" />
             <circle cx="126" cy="94" r="6.5" fill="#111827" />
             <circle cx="72.5" cy="92" r="2.5" fill="#fff" />
             <circle cx="124.5" cy="92" r="2.5" fill="#fff" />
           </g>
-
-          <!-- Hidung & Mulut -->
           <path d="M100 105 Q105 115 95 115" fill="none" stroke="#d97777" stroke-width="3" stroke-linecap="round" opacity="0.5" />
           <path d="M90 130 Q100 135 110 130" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round" />
         </g>
       </svg>
-      
       <span class="status" aria-label="Online"></span>
     </div>
-     
+
     <div class="name-wrapper" style="display: flex; justify-content: center;">
       <h1 class="name" role="button" tabindex="0">
         Elkaff
@@ -679,8 +589,7 @@ footer a:hover {
   </header>
 
   <nav class="links" aria-label="Social links">
-    
-    <a class="link portfolio" href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer">
+    <a class="link portfolio scroll-anim" href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer">
       <div class="icon"><i class="fa-solid fa-code"></i></div>
       <div class="link-info">
         <div class="link-title">Portfolio</div>
@@ -689,7 +598,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link github" href="https://github.com/elkhaff" target="_blank" rel="noopener noreferrer">
+    <a class="link github scroll-anim" href="https://github.com/elkhaff" target="_blank" rel="noopener noreferrer" style="transition-delay: 50ms;">
       <div class="icon"><i class="fa-brands fa-github"></i></div>
       <div class="link-info">
         <div class="link-title">GitHub</div>
@@ -698,7 +607,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link discord" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer">
+    <a class="link discord scroll-anim" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer" style="transition-delay: 100ms;">
       <div class="icon"><i class="fa-brands fa-discord"></i></div>
       <div class="link-info">
         <div class="link-title">The Hideout</div>
@@ -707,7 +616,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link whatsapp" href="https://whatsapp.com/channel/0029VawVHH6FXUueZZVhXz3V" target="_blank" rel="noopener noreferrer">
+    <a class="link whatsapp scroll-anim" href="https://whatsapp.com/channel/0029VawVHH6FXUueZZVhXz3V" target="_blank" rel="noopener noreferrer" style="transition-delay: 150ms;">
       <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
       <div class="link-info">
         <div class="link-title">WhatsApp Channel</div>
@@ -716,7 +625,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link whatsapp" href="https://chat.whatsapp.com/CuZEKz1QMcUAfKdCdngld9?s=cl&p=a&mlu=0" target="_blank" rel="noopener noreferrer">
+    <a class="link whatsapp scroll-anim" href="https://chat.whatsapp.com/CuZEKz1QMcUAfKdCdngld9?s=cl&p=a&mlu=0" target="_blank" rel="noopener noreferrer" style="transition-delay: 200ms;">
       <div class="icon"><i class="fa-solid fa-users"></i></div>
       <div class="link-info">
         <div class="link-title">WhatsApp Group</div>
@@ -725,7 +634,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link instagram" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer">
+    <a class="link instagram scroll-anim" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer" style="transition-delay: 250ms;">
       <div class="icon"><i class="fa-brands fa-instagram"></i></div>
       <div class="link-info">
         <div class="link-title">Instagram</div>
@@ -734,7 +643,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link tiktok" href="https://tiktok.com/@elkaff27" target="_blank" rel="noopener noreferrer">
+    <a class="link tiktok scroll-anim" href="https://tiktok.com/@elkaff27" target="_blank" rel="noopener noreferrer" style="transition-delay: 300ms;">
       <div class="icon"><i class="fa-brands fa-tiktok"></i></div>
       <div class="link-info">
         <div class="link-title">TikTok</div>
@@ -743,7 +652,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link facebook" href="https://facebook.com/elkaff27" target="_blank" rel="noopener noreferrer">
+    <a class="link facebook scroll-anim" href="https://facebook.com/elkaff27" target="_blank" rel="noopener noreferrer" style="transition-delay: 350ms;">
       <div class="icon"><i class="fa-brands fa-facebook"></i></div>
       <div class="link-info">
         <div class="link-title">Facebook</div>
@@ -752,7 +661,7 @@ footer a:hover {
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
 
-    <a class="link support" href="https://tako.id/elkaff" target="_blank" rel="noopener noreferrer">
+    <a class="link support scroll-anim" href="https://tako.id/elkaff" target="_blank" rel="noopener noreferrer" style="transition-delay: 400ms;">
       <div class="icon"><i class="fa-solid fa-mug-hot"></i></div>
       <div class="link-info">
         <div class="link-title">Support Me</div>
@@ -760,12 +669,11 @@ footer a:hover {
       </div>
       <i class="fa-solid fa-arrow-up-right-from-square arrow"></i>
     </a>
-
   </nav>
 
-  <div class="divider"></div>
+  <div class="divider scroll-anim"></div>
 
-  <div class="socials">
+  <div class="socials scroll-anim">
     <a class="social" href="https://github.com/elkhaff" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
     <a class="social" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
     <a class="social" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -773,7 +681,7 @@ footer a:hover {
     <a class="social" href="https://tako.id/elkaff" target="_blank" rel="noopener noreferrer" aria-label="Support"><i class="fa-solid fa-heart"></i></a>
   </div>
 
-  <footer>
+  <footer class="scroll-anim">
     <p>© <span id="year"></span> Elkaff. All rights reserved.</p>
     <p>Built with simplicity · <a href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer">elkaff.is-a.dev</a></p>
   </footer>
@@ -782,6 +690,18 @@ footer a:hover {
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scroll-anim').forEach((el) => {
+    observer.observe(el);
+  });
 </script>
 
 </body>
