@@ -77,8 +77,8 @@ body {
   z-index: 0;
   pointer-events: none;
   background-image: 
-    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
@@ -103,7 +103,7 @@ body {
 .glow-orb.orb-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
   top: -100px;
   left: 20%;
   animation-delay: 0s;
@@ -112,7 +112,7 @@ body {
 .glow-orb.orb-2 {
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(225,48,108,0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(225,48,108,0.2) 0%, transparent 70%);
   bottom: 10%;
   right: -50px;
   animation-delay: -5s;
@@ -123,7 +123,7 @@ body {
    ========================================= */
 .container {
   width: 100%;
-  max-width: 560px; /* Sedikit lebih lebar untuk desktop */
+  max-width: 560px;
   padding: 60px 24px 40px;
   position: relative;
   z-index: 10;
@@ -146,7 +146,6 @@ body {
   margin-bottom: 24px;
 }
 
-/* Base Avatar Styling */
 .avatar {
   width: 104px;
   height: 104px;
@@ -168,7 +167,6 @@ body {
   border-color: rgba(99, 102, 241, 0.5);
 }
 
-/* Status Online Berdenyut (Pulse) */
 .status {
   position: absolute;
   right: 6px;
@@ -193,14 +191,14 @@ body {
   line-height: 1.2;
   margin-bottom: 8px;
 }
-
-/* Styling gambar centang */
+   
 .verified-img {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   vertical-align: middle;
   object-fit: contain;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  margin-left: 2px;
 }
 
 .bio {
@@ -209,18 +207,33 @@ body {
   font-weight: 500;
   line-height: 1.6;
 }
-
+   
 .location {
-  margin-top: 12px;
+  margin-top: 14px;
   color: var(--text-subtle);
   font-size: 13px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 8px;
+  padding: 8px 16px;
   background: rgba(255,255,255,0.03);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.location:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+.location:active {
+  transform: scale(0.92);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
 /* =========================================
@@ -244,13 +257,12 @@ body {
   border-radius: 24px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek bouncy yang smooth */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow: hidden;
 }
 
-/* Efek kilauan saat di-hover */
 .link::before {
   content: "";
   position: absolute;
@@ -267,24 +279,25 @@ body {
   left: 150%;
 }
 
-/* Hover Umum */
 .link:hover {
   transform: translateY(-5px) scale(1.02);
   background: var(--glass-hover);
 }
 
-/* Stagger Animasi Masuk */
-.link:nth-child(1) { animation-delay: 0.1s; }
-.link:nth-child(2) { animation-delay: 0.2s; }
-.link:nth-child(3) { animation-delay: 0.3s; }
-.link:nth-child(4) { animation-delay: 0.4s; }
-.link:nth-child(5) { animation-delay: 0.5s; }
-.link:nth-child(6) { animation-delay: 0.6s; }
-.link:nth-child(7) { animation-delay: 0.7s; }
-.link:nth-child(8) { animation-delay: 0.8s; }
-.link:nth-child(9) { animation-delay: 0.9s; }
+.link:active {
+  transform: scale(0.98);
+}
 
-/* Icon Styling */
+.link:nth-child(1) { animation-delay: 0.1s; }
+.link:nth-child(2) { animation-delay: 0.15s; }
+.link:nth-child(3) { animation-delay: 0.2s; }
+.link:nth-child(4) { animation-delay: 0.25s; }
+.link:nth-child(5) { animation-delay: 0.3s; }
+.link:nth-child(6) { animation-delay: 0.35s; }
+.link:nth-child(7) { animation-delay: 0.4s; }
+.link:nth-child(8) { animation-delay: 0.45s; }
+.link:nth-child(9) { animation-delay: 0.5s; }
+
 .icon {
   width: 48px;
   height: 48px;
@@ -310,7 +323,7 @@ body {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.2px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .link-desc {
@@ -333,6 +346,9 @@ body {
   transform: translateX(4px) scale(1.1);
 }
 
+/* =========================================
+   HOVER COLORS BY BRAND
+   ========================================= */
 .link.portfolio:hover { border-color: rgba(168,85,247,0.5); box-shadow: 0 10px 30px rgba(168,85,247,0.15); }
 .link.portfolio:hover .icon { background: rgba(168,85,247,0.15); color: var(--c-portfolio); transform: scale(1.1) rotate(-5deg); }
 
@@ -357,12 +373,15 @@ body {
 .link.support:hover { border-color: rgba(255,183,3,0.5); box-shadow: 0 10px 30px rgba(255,183,3,0.15); }
 .link.support:hover .icon { background: rgba(255,183,3,0.15); color: var(--c-support); transform: scale(1.1) rotate(-5deg); }
 
+/* =========================================
+   FOOTER & SOCIALS
+   ========================================= */
 .divider {
   height: 1px;
   margin: 36px 0 28px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   animation: fadeUp 1s ease both;
-  animation-delay: 1s;
+  animation-delay: 0.6s;
 }
 
 .socials {
@@ -372,16 +391,16 @@ body {
   gap: 14px;
   margin-bottom: 36px;
   animation: fadeUp 1s ease both;
-  animation-delay: 1.1s;
+  animation-delay: 0.7s;
 }
 
 .social {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  border-radius: 14px;
   font-size: 18px;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.03);
@@ -403,14 +422,13 @@ body {
 .social:hover[aria-label="TikTok"] { color: var(--c-tiktok); border-color: rgba(37,244,238,0.4); box-shadow: 0 5px 15px rgba(37,244,238,0.15); }
 .social:hover[aria-label="Support"] { color: var(--c-support); border-color: rgba(255,183,3,0.4); box-shadow: 0 5px 15px rgba(255,183,3,0.15); }
 
-
 footer {
   text-align: center;
   color: var(--text-subtle);
   font-size: 13px;
   line-height: 1.8;
   animation: fadeUp 1s ease both;
-  animation-delay: 1.2s;
+  animation-delay: 0.8s;
 }
 
 footer a {
@@ -422,14 +440,18 @@ footer a {
 
 footer a:hover {
   color: #fff;
+}
 
+/* =========================================
+   ANIMASI KEYFRAMES
+   ========================================= */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(25px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
+  from { opacity: 0; transform: translateY(-15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -444,7 +466,6 @@ footer a:hover {
   100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* Animasi Kedip SVG Karakter */
 @keyframes blink {
   0%, 45%, 49%, 100% { transform: scaleY(1); }
   47% { transform: scaleY(0.1); }
@@ -455,31 +476,47 @@ footer a:hover {
   animation: blink 4s infinite;
 }
 
+/* =========================================
+   RESPONSIVITAS (KHUSUS MOBILE)
+   ========================================= */
 @media (max-width: 600px) {
   .container {
-    padding: 40px 20px 30px;
+    padding: 40px 16px 25px;
   }
   
   .avatar {
-    width: 96px;
-    height: 96px;
+    width: 92px;
+    height: 92px;
   }
   
   .name {
-    font-size: 28px;
+    font-size: 26px;
   }
   
+  .verified-img {
+    width: 26px; 
+    height: 26px;
+  }
+  
+  .bio {
+    font-size: 14px;
+  }
+  
+  .links {
+    gap: 12px;
+  }
+
   .link {
-    padding: 12px 16px;
-    border-radius: 20px;
-    min-height: 60px;
+    padding: 10px 14px; 
+    border-radius: 18px;
+    min-height: 56px;
   }
   
   .icon {
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
-    border-radius: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+    border-radius: 12px;
   }
   
   .link-info {
@@ -488,10 +525,26 @@ footer a:hover {
   
   .link-title {
     font-size: 14px;
+    margin-bottom: 2px;
   }
   
   .link-desc {
+    font-size: 11.5px;
+  }
+
+  .arrow {
     font-size: 12px;
+  }
+  
+  .socials {
+    gap: 10px;
+  }
+  
+  .social {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    border-radius: 12px;
   }
 }
 
@@ -510,7 +563,6 @@ footer a:hover {
 
 <body>
 
-<!-- Background Animasi Glow -->
 <div class="bg-grid"></div>
 <div class="bg-glow">
   <div class="glow-orb orb-1"></div>
@@ -538,7 +590,7 @@ footer a:hover {
           <!-- Background Base -->
           <rect width="200" height="200" fill="#0f172a" />
 
-          <!-- Pakaian (Hoodie Developer) -->
+          <!-- Pakaian -->
           <path d="M15 220 C15 140 185 140 185 220" fill="#1e293b" />
           <path d="M60 220 C60 170 140 170 140 220" fill="#0f172a" />
           <path d="M85 160 L85 190" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
@@ -555,7 +607,7 @@ footer a:hover {
           <rect x="40" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
           <rect x="145" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
 
-          <!-- Rambut Bagian Belakang -->
+          <!-- Rambut Belakang -->
           <path d="M45 80 Q45 15 100 15 Q155 15 155 80 Z" fill="#111827" />
           
           <!-- Rambut Poni -->
@@ -563,7 +615,7 @@ footer a:hover {
           <path d="M50 45 Q70 25 90 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
           <path d="M150 45 Q130 25 110 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
 
-          <!-- Alis Mata -->
+          <!-- Alis -->
           <g class="eyebrow">
             <path d="M60 75 Q75 70 85 75" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round" />
             <path d="M115 75 Q125 70 140 75" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round" />
@@ -574,7 +626,7 @@ footer a:hover {
           <rect x="107" y="80" width="38" height="28" rx="8" fill="rgba(255,255,255,0.15)" stroke="#334155" stroke-width="4" />
           <line x1="93" y1="94" x2="107" y2="94" stroke="#334155" stroke-width="4" />
 
-          <!-- Mata (Animasi Kedip) -->
+          <!-- Mata -->
           <g class="eyes">
             <circle cx="74" cy="94" r="6.5" fill="#111827" />
             <circle cx="126" cy="94" r="6.5" fill="#111827" />
@@ -601,11 +653,11 @@ footer a:hover {
     <p class="bio">
       Developer · Bot Creator · Automation
     </p>
-
-    <p class="location">
+     
+    <div class="location" role="button" tabindex="0">
       <i class="fa-solid fa-location-dot"></i>
       Indonesia
-    </p>
+    </div>
   </header>
 
   <nav class="links" aria-label="Social links">
