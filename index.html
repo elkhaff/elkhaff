@@ -42,6 +42,7 @@
   --c-tiktok: #25F4EE;
   --c-facebook: #1877F2;
   --c-support: #FFB703;
+  --c-verified: #0095f6;
 }
 
 * {
@@ -181,24 +182,42 @@ body {
 }
 
 .name {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 32px;
+  gap: 3px;
+  font-size: 28px;
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 1.2;
   margin-bottom: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-   
+
+.name:hover {
+  text-shadow: 0 0 15px rgba(0, 149, 246, 0.3);
+}
+
+.name:active {
+  transform: scale(0.92);
+  color: var(--c-verified);
+  text-shadow: 0 4px 20px rgba(0, 149, 246, 0.6);
+}
+
 .verified-img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   vertical-align: middle;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  margin-left: 2px;
+  transition: transform 0.2s ease;
+}
+
+.name:active .verified-img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(0, 149, 246, 0.8));
 }
 
 .bio {
@@ -207,7 +226,7 @@ body {
   font-weight: 500;
   line-height: 1.6;
 }
-   
+
 .location {
   margin-top: 14px;
   color: var(--text-subtle);
@@ -490,12 +509,13 @@ footer a:hover {
   }
   
   .name {
-    font-size: 26px;
+    font-size: 24px;
+    gap: 3px; 
   }
   
   .verified-img {
-    width: 26px; 
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
   
   .bio {
@@ -503,7 +523,7 @@ footer a:hover {
   }
   
   .links {
-    gap: 12px;
+    gap: 12px; 
   }
 
   .link {
@@ -574,7 +594,7 @@ footer a:hover {
   <header class="profile">
     <div class="avatar-wrapper">
       
-      <!-- Inline SVG Karakter (Mata Berkedip) -->
+      <!-- Inline SVG Karakter -->
       <svg viewBox="0 0 200 200" class="avatar" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="circleClip">
@@ -607,10 +627,8 @@ footer a:hover {
           <rect x="40" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
           <rect x="145" y="85" width="15" height="25" rx="7.5" fill="url(#skin)" />
 
-          <!-- Rambut Belakang -->
+          <!-- Rambut -->
           <path d="M45 80 Q45 15 100 15 Q155 15 155 80 Z" fill="#111827" />
-          
-          <!-- Rambut Poni -->
           <path d="M45 60 Q70 30 100 45 Q130 30 155 60 Q150 15 100 15 Q50 15 45 60" fill="#030712" />
           <path d="M50 45 Q70 25 90 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
           <path d="M150 45 Q130 25 110 40" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
@@ -626,7 +644,7 @@ footer a:hover {
           <rect x="107" y="80" width="38" height="28" rx="8" fill="rgba(255,255,255,0.15)" stroke="#334155" stroke-width="4" />
           <line x1="93" y1="94" x2="107" y2="94" stroke="#334155" stroke-width="4" />
 
-          <!-- Mata -->
+          <!-- Mata (Beranimasi Kedip) -->
           <g class="eyes">
             <circle cx="74" cy="94" r="6.5" fill="#111827" />
             <circle cx="126" cy="94" r="6.5" fill="#111827" />
@@ -634,26 +652,26 @@ footer a:hover {
             <circle cx="124.5" cy="92" r="2.5" fill="#fff" />
           </g>
 
-          <!-- Hidung -->
+          <!-- Hidung & Mulut -->
           <path d="M100 105 Q105 115 95 115" fill="none" stroke="#d97777" stroke-width="3" stroke-linecap="round" opacity="0.5" />
-
-          <!-- Mulut -->
           <path d="M90 130 Q100 135 110 130" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round" />
         </g>
       </svg>
       
       <span class="status" aria-label="Online"></span>
     </div>
-
-    <h1 class="name">
-      Elkaff
-      <img src="img/centang.png" alt="Verified" class="verified-img" title="Verified">
-    </h1>
+     
+    <div class="name-wrapper" style="display: flex; justify-content: center;">
+      <h1 class="name" role="button" tabindex="0">
+        Elkaff
+        <img src="img/centang.png" alt="Verified" class="verified-img" title="Verified">
+      </h1>
+    </div>
 
     <p class="bio">
       Developer · Bot Creator · Automation
     </p>
-     
+
     <div class="location" role="button" tabindex="0">
       <i class="fa-solid fa-location-dot"></i>
       Indonesia
