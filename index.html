@@ -16,64 +16,161 @@
 <style>
 :root {
   --text: #fff;
-  --text-2: rgba(235, 235, 245, 0.62);
-  --text-3: rgba(235, 235, 245, 0.35);
+  --text-2: hsl(235 30% 86%);
+  --text-3: hsl(235 30% 86% / 0.5);
   --glass: rgba(255, 255, 255, 0.13);
   --glass-strong: rgba(255, 255, 255, 0.2);
   --edge: rgba(255, 255, 255, 0.28);
   --sep: rgba(255, 255, 255, 0.12);
+  --under: linear-gradient(hsl(228 55% 6% / 0.3), hsl(228 55% 6% / 0.3));
   --blur: blur(32px) saturate(180%);
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --split: linear-gradient(90deg, #ff6fae 0%, #ff6fae 47%, #3aa0ff 53%, #3aa0ff 100%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; }
+html {
+  background: #070b1f;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   color: var(--text);
-  background: #0b1026;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-.wallpaper {
+/* Wallpaper on a fixed layer (iOS Safari ignores background-attachment: fixed). Plain gradients only. */
+html::before {
+  content: "";
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -3;
   pointer-events: none;
   background:
-    radial-gradient(60% 45% at 15% 10%, #0a84ff 0%, transparent 70%),
-    radial-gradient(55% 40% at 90% 25%, #ff4d94 0%, transparent 70%),
-    radial-gradient(60% 45% at 10% 75%, #32ade6 0%, transparent 70%),
-    radial-gradient(55% 40% at 95% 95%, #ff2d78 0%, transparent 70%),
-    #0b1026;
-  filter: saturate(1.1);
+    radial-gradient(70% 50% at 12% 0%,    rgba(10, 132, 255, 0.55), rgba(10, 132, 255, 0.18) 45%, transparent 75%),
+    radial-gradient(55% 40% at 100% 14%,  rgba(50, 173, 230, 0.30), transparent 70%),
+    radial-gradient(65% 45% at 0% 62%,    rgba(255, 77, 148, 0.36), rgba(255, 77, 148, 0.11) 50%, transparent 78%),
+    radial-gradient(60% 45% at 100% 100%, rgba(255, 77, 120, 0.44), rgba(255, 77, 120, 0.14) 50%, transparent 78%),
+    linear-gradient(180deg, #060a1c 0%, #0a1030 48%, #070b1f 100%);
 }
 
-.wallpaper::after {
+/* Fine film grain (static tile, no blend mode): hides gradient banding. */
+body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/png;base64,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");
+  background-size: 96px 96px;
 }
+
+/* Soft vignette + faint top sheen. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 28% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 70%),
+    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(5, 8, 22, 0.5) 100%);
+}
+
+/* Slow aurora drift: desktop only, one composited transform layer. */
+@media (min-width: 768px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html::after {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 40% at 30% 30%, rgba(10, 132, 255, 0.30), transparent 70%),
+      radial-gradient(38% 38% at 72% 68%, rgba(255, 77, 148, 0.28), transparent 70%),
+      radial-gradient(30% 30% at 76% 24%, rgba(50, 173, 230, 0.20), transparent 70%);
+    animation: aurora 48s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
+/* Floating glass navbar */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px 0;
+  pointer-events: none;
+}
+
+.pill {
+  pointer-events: auto;
+  max-width: 480px;
+  height: 52px;
+  margin: 0 auto;
+  padding: 0 8px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--glass);
+  background-image: var(--under);
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.logo {
+  display: inline-block;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1;
+  text-decoration: none;
+  color: transparent;
+  background: var(--split);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: #ff4d94;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 12px rgba(255, 77, 148, 0.35);
+  transition: transform 0.25s var(--ease);
+}
+
+.pill-btn:active { transform: scale(0.94); }
 
 .container {
   position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 480px;
-  padding: calc(env(safe-area-inset-top, 0px) + 56px) 18px calc(env(safe-area-inset-bottom, 0px) + 28px);
+  padding: calc(env(safe-area-inset-top, 0px) + 96px) 18px calc(env(safe-area-inset-bottom, 0px) + 28px);
   display: flex;
   flex-direction: column;
   animation: rise 0.7s var(--ease) both;
 }
 
-/* Profil */
+/* Profile */
 .profile { text-align: center; margin-bottom: 30px; }
 
 .avatar-wrapper { position: relative; display: inline-flex; margin-bottom: 18px; }
@@ -84,7 +181,7 @@ body {
   display: block;
   border-radius: 50%;
   border: 1.5px solid var(--edge);
-  box-shadow: 0 0 0 6px rgba(255,255,255,0.1), 0 18px 40px rgba(0,0,0,0.35);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.1), 0 18px 40px rgba(0, 0, 0, 0.35);
   transition: transform 0.5s var(--ease);
 }
 
@@ -121,8 +218,17 @@ body {
 
 .bio { color: var(--text-2); font-size: 15px; font-weight: 500; }
 
+.accent {
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 16px auto 0;
+  border-radius: 999px;
+  background: var(--split);
+}
+
 .location {
-  margin-top: 14px;
+  margin-top: 16px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -130,38 +236,57 @@ body {
   font-size: 13px;
   font-weight: 500;
   color: var(--text-2);
-  background: var(--glass);
+  background-color: var(--glass);
+  background-image: var(--under);
   border: 1px solid var(--edge);
   border-radius: 999px;
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
   cursor: pointer;
   user-select: none;
-  transition: transform 0.25s var(--ease), background 0.25s;
+  transition: transform 0.25s var(--ease), background-color 0.25s;
 }
 
-.location:active { transform: scale(0.94); background: var(--glass-strong); }
+.location:active { transform: scale(0.94); background-color: var(--glass-strong); }
 
-/* Grup tautan bergaya Pengaturan iOS */
+/* iOS Settings-style link groups */
 .links { display: flex; flex-direction: column; gap: 22px; }
 
 .group-label {
-  margin: 0 0 7px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px 4px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(0 0% 100% / 0.8);
+  background-color: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
+
+.group-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d94, #0a84ff);
 }
 
 .group {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--glass);
+  background-color: var(--glass);
+  background-image: var(--under);
   border: 1px solid var(--edge);
   border-radius: 22px;
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 10px 30px rgba(0,0,0,0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 .link {
@@ -170,10 +295,10 @@ body {
   align-items: center;
   gap: 13px;
   min-height: 60px;
-  padding: 10px 14px 10px 14px;
+  padding: 10px 14px;
   color: var(--text);
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .link + .link::before {
@@ -186,7 +311,7 @@ body {
   background: var(--sep);
 }
 
-.link:active { background: var(--glass-strong); }
+.link:active { background-color: var(--glass-strong); }
 
 .icon {
   width: 40px;
@@ -198,7 +323,7 @@ body {
   border-radius: 11px;
   font-size: 19px;
   color: #fff;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .portfolio .icon { background: linear-gradient(160deg, #ff7ab2, #ff2d78); }
@@ -225,19 +350,20 @@ body {
 
 .arrow { font-size: 13px; color: var(--text-3); }
 
-/* Dock bergaya iOS */
+/* iOS-style dock */
 .dock {
   align-self: center;
   display: flex;
   gap: 14px;
-  margin: 30px 0 26px;
+  margin: 30px 0 22px;
   padding: 12px 16px;
-  background: var(--glass);
+  background-color: var(--glass);
+  background-image: var(--under);
   border: 1px solid var(--edge);
   border-radius: 30px;
   -webkit-backdrop-filter: var(--blur);
   backdrop-filter: var(--blur);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 14px 34px rgba(0,0,0,0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 14px 34px rgba(0, 0, 0, 0.25);
 }
 
 .social {
@@ -250,7 +376,7 @@ body {
   font-size: 21px;
   color: #fff;
   text-decoration: none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 2px 6px rgba(0,0,0,0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s var(--ease);
 }
 
@@ -261,36 +387,195 @@ body {
 .social[aria-label="TikTok"] { background: linear-gradient(160deg, #2b2b30, #000); }
 .social[aria-label="Support"] { background: linear-gradient(160deg, #ff6b8a, #ff2d55); }
 
-footer { text-align: center; color: var(--text-3); font-size: 12.5px; line-height: 1.8; }
+/* Footer as a floating glass card, like the portfolio */
+footer {
+  margin-top: 4px;
+  padding: 22px 18px;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 12.5px;
+  line-height: 1.8;
+  background-color: var(--glass);
+  background-image: var(--under);
+  border: 1px solid var(--edge);
+  border-radius: 28px;
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+footer .logo { font-size: 22px; margin-bottom: 8px; }
+footer p { color: hsl(235 30% 86% / 0.8); }
 footer a { color: var(--text-2); text-decoration: none; }
 
 @media (hover: hover) {
-  .link:hover { background: rgba(255,255,255,0.08); }
+  .link:hover { background-color: rgba(255, 255, 255, 0.08); }
   .social:hover { transform: translateY(-4px) scale(1.08); }
 }
 
 :focus-visible { outline: 2px solid #64d2ff; outline-offset: 2px; }
 
-.avatar .eyes { transform-origin: center 94px; animation: blink 4s infinite; }
+/* Blink: explicit transform-box/origin so it renders the same in every desktop browser
+   (a bare "center 94px" on an SVG <g> is resolved differently by Firefox and Safari). */
+.avatar .eyes { transform-box: view-box; transform-origin: 100px 94px; animation: blink 4s infinite; }
+.avatar #look { transition: transform 0.14s ease-out; }
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes blink { 0%, 45%, 49%, 100% { transform: scaleY(1); } 47% { transform: scaleY(0.1); } }
-
-@media (prefers-reduced-motion: reduce) {
-  *, ::before { animation: none !important; transition-duration: 0.01ms !important; }
+@keyframes aurora {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(4%, 3%, 0) rotate(6deg) scale(1.12); }
 }
 
-/* Cadangan jika browser tidak mendukung backdrop-filter */
+/* Reduced motion: stop the big movements (entrance slide, aurora). The tiny eye blink is kept on purpose,
+   and the pupils only move when the visitor moves the pointer themselves. */
+@media (prefers-reduced-motion: reduce) {
+  .container { animation: none; }
+  html::after { display: none; }
+  *, ::before { transition-duration: 0.01ms !important; }
+  .avatar #look { transition: none; }
+}
+
+/* Low-end / data-saver / reduced-transparency: drop every backdrop blur (class set by the script below). */
+html.lite-glass .pill, html.lite-glass .group, html.lite-glass .dock,
+html.lite-glass .location, html.lite-glass footer {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: hsl(228 40% 16% / 0.78);
+}
+html.lite-glass::after { display: none; }
+
+@media (prefers-reduced-transparency: reduce) {
+  .pill, .group, .dock, .location, footer {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: hsl(228 40% 16% / 0.92);
+  }
+}
+
+/* Fallback when backdrop-filter is unsupported */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .group, .dock, .location { background: rgba(40, 40, 70, 0.75); }
+  .pill, .group, .dock, .location, footer { background-color: rgba(30, 34, 70, 0.85); }
+}
+
+/* ============ Responsive layout ============ */
+html { scroll-behavior: smooth; }
+.group-label { scroll-margin-top: 96px; }
+.pill-links { display: none; }
+
+/* Mobile: the wrapper is transparent and children keep the original order. */
+.side { display: contents; }
+.container > .profile, .side > .profile { order: 1; }
+.links { order: 2; }
+.side > .dock { order: 3; }
+footer { order: 4; }
+
+.link:hover .arrow { color: #fff; transform: translateX(3px); }
+.arrow { transition: transform 0.25s var(--ease), color 0.25s; }
+.link:hover .icon { transform: scale(1.06); }
+.icon { transition: transform 0.3s var(--ease); }
+
+/* Tablet: same single column, a little wider. */
+@media (min-width: 640px) {
+  .container { max-width: 560px; }
+  .pill { max-width: 560px; }
+}
+
+/* Desktop: profile card pinned on the left, links in two balanced columns on the right. */
+@media (min-width: 1024px) {
+  .pill { max-width: 1080px; padding-left: 26px; padding-right: 10px; height: 56px; }
+  .pill-links { display: flex; gap: 4px; }
+  .pill-links a {
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-2);
+    text-decoration: none;
+    border-radius: 999px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .pill-links a:hover { color: #fff; background-color: rgba(255, 255, 255, 0.1); }
+
+  .container {
+    max-width: 1080px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 120px);
+    padding-bottom: 48px;
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  .side {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    position: sticky;
+    top: 104px;
+    padding: 34px 28px 28px;
+    background-color: var(--glass);
+    background-image: var(--under);
+    border: 1px solid var(--edge);
+    border-radius: 32px;
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 14px 34px rgba(0, 0, 0, 0.25);
+  }
+  .profile { margin-bottom: 26px; }
+  .avatar { width: 124px; height: 124px; }
+  .avatar-wrapper { margin-bottom: 22px; }
+  .name { font-size: 34px; }
+  .bio { font-size: 16px; }
+
+  /* The dock lives inside the profile card on desktop. */
+  .side > .dock {
+    width: 100%;
+    margin: 0;
+    padding: 22px 0 0;
+    gap: 10px;
+    justify-content: center;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--sep);
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .links { grid-column: 2; grid-row: 1; display: block; column-count: 2; column-gap: 24px; }
+  .links > section { break-inside: avoid; margin-bottom: 24px; }
+  .links > section:last-child { margin-bottom: 0; }
+
+  footer { grid-column: 1 / -1; grid-row: 2; margin-top: 36px; }
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .link:hover { background-color: rgba(255, 255, 255, 0.1); }
+}
+
+html.lite-glass .side { -webkit-backdrop-filter: none; backdrop-filter: none; background-color: hsl(228 40% 16% / 0.78); }
+@media (prefers-reduced-transparency: reduce) {
+  .side { -webkit-backdrop-filter: none; backdrop-filter: none; background-color: hsl(228 40% 16% / 0.92); }
 }
 </style>
 </head>
 <body>
 
-<div class="wallpaper"></div>
+<nav class="topbar" aria-label="Navigasi">
+  <div class="pill">
+    <a class="logo" href="#" aria-label="Elkaff">ELKAFF</a>
+    <div class="pill-links">
+      <a href="#karya">Karya</a>
+      <a href="#komunitas">Komunitas</a>
+      <a href="#sosial">Media sosial</a>
+    </div>
+    <a class="pill-btn" href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-code"></i> Portfolio</a>
+  </div>
+</nav>
 
 <main class="container">
+  <aside class="side">
   <header class="profile">
     <div class="avatar-wrapper">
       <svg viewBox="0 0 200 200" class="avatar" xmlns="http://www.w3.org/2000/svg">
@@ -324,10 +609,12 @@ footer a { color: var(--text-2); text-decoration: none; }
           <rect x="107" y="80" width="38" height="28" rx="8" fill="rgba(255,255,255,0.15)" stroke="#334155" stroke-width="4" />
           <line x1="93" y1="94" x2="107" y2="94" stroke="#334155" stroke-width="4" />
           <g class="eyes">
-            <circle cx="74" cy="94" r="6.5" fill="#111827" />
-            <circle cx="126" cy="94" r="6.5" fill="#111827" />
-            <circle cx="72.5" cy="92" r="2.5" fill="#fff" />
-            <circle cx="124.5" cy="92" r="2.5" fill="#fff" />
+            <g id="look">
+              <circle cx="74" cy="94" r="6.5" fill="#111827" />
+              <circle cx="126" cy="94" r="6.5" fill="#111827" />
+              <circle cx="72.5" cy="92" r="2.5" fill="#fff" />
+              <circle cx="124.5" cy="92" r="2.5" fill="#fff" />
+            </g>
           </g>
           <path d="M100 105 Q105 115 95 115" fill="none" stroke="#d97777" stroke-width="3" stroke-linecap="round" opacity="0.5" />
           <path d="M90 130 Q100 135 110 130" fill="none" stroke="#991b1b" stroke-width="2.5" stroke-linecap="round" />
@@ -345,15 +632,26 @@ footer a { color: var(--text-2); text-decoration: none; }
 
     <p class="bio">Developer · Bot Creator · Automation</p>
 
+    <span class="accent" aria-hidden="true"></span>
+
     <div class="location" role="button" tabindex="0">
       <i class="fa-solid fa-location-dot"></i>
       Indonesia
     </div>
   </header>
 
+  <div class="dock">
+    <a class="social" href="https://github.com/elkhaff" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a class="social" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+    <a class="social" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="social" href="https://tiktok.com/@elkaff27" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a class="social" href="https://tako.id/elkaff" target="_blank" rel="noopener noreferrer" aria-label="Support"><i class="fa-solid fa-heart"></i></a>
+  </div>
+  </aside>
+
   <nav class="links" aria-label="Social links">
     <section>
-      <div class="group-label">Karya</div>
+      <div class="group-label" id="karya">Karya</div>
       <div class="group">
         <a class="link portfolio" href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer">
           <div class="icon"><i class="fa-solid fa-code"></i></div>
@@ -375,7 +673,7 @@ footer a { color: var(--text-2); text-decoration: none; }
     </section>
 
     <section>
-      <div class="group-label">Komunitas</div>
+      <div class="group-label" id="komunitas">Komunitas</div>
       <div class="group">
         <a class="link discord" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer">
           <div class="icon"><i class="fa-brands fa-discord"></i></div>
@@ -405,7 +703,7 @@ footer a { color: var(--text-2); text-decoration: none; }
     </section>
 
     <section>
-      <div class="group-label">Media sosial</div>
+      <div class="group-label" id="sosial">Media sosial</div>
       <div class="group">
         <a class="link instagram" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer">
           <div class="icon"><i class="fa-brands fa-instagram"></i></div>
@@ -448,15 +746,9 @@ footer a { color: var(--text-2); text-decoration: none; }
     </section>
   </nav>
 
-  <div class="dock">
-    <a class="social" href="https://github.com/elkhaff" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-    <a class="social" href="https://discord.gg/uvpE7NsU73" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-    <a class="social" href="https://instagram.com/elk_aff" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-    <a class="social" href="https://tiktok.com/@elkaff27" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-    <a class="social" href="https://tako.id/elkaff" target="_blank" rel="noopener noreferrer" aria-label="Support"><i class="fa-solid fa-heart"></i></a>
-  </div>
 
   <footer>
+    <a class="logo" href="#" aria-label="Elkaff">ELKAFF</a>
     <p>© <span id="year"></span> Elkaff. All rights reserved.</p>
     <p>Built with simplicity · <a href="https://elkaff.is-a.dev" target="_blank" rel="noopener noreferrer">elkaff.is-a.dev</a></p>
   </footer>
@@ -464,6 +756,31 @@ footer a { color: var(--text-2); text-decoration: none; }
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Eyes follow the pointer on devices that have one (desktop / laptop).
+  (function () {
+    var av = document.querySelector(".avatar"), look = document.getElementById("look");
+    if (!av || !look || !window.matchMedia("(hover: hover)").matches) return;
+    var raf = 0, x = 0, y = 0;
+    function apply() { raf = 0; look.style.transform = "translate(" + x.toFixed(2) + "px," + y.toFixed(2) + "px)"; }
+    window.addEventListener("pointermove", function (e) {
+      var r = av.getBoundingClientRect();
+      var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.47);
+      var d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 240);
+      x = (dx / d) * 3.4 * k; y = (dy / d) * 2.6 * k;
+      if (!raf) raf = requestAnimationFrame(apply);
+    }, { passive: true });
+    document.documentElement.addEventListener("pointerleave", function () { x = 0; y = 0; apply(); });
+  })();
+
+  // Cheap heuristic for low-end phones / data-saver mode: skip backdrop blur (see html.lite-glass).
+  (function () {
+    var n = navigator;
+    var low = (n.deviceMemory && n.deviceMemory <= 4) ||
+              (n.hardwareConcurrency && n.hardwareConcurrency <= 4) ||
+              (n.connection && n.connection.saveData);
+    if (low) document.documentElement.classList.add("lite-glass");
+  })();
 </script>
 
 </body>
